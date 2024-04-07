@@ -7,6 +7,7 @@ class Game:
     def new_game(self):
         self.deck = Deck()
         self.deck.shuffle_deck()
+        self.delt_card = self.deck.deal_card()
 
         self.board = [[None for _ in range(5)] for _ in range(5)]
         self.scoreboard_rows = [0, 0, 0, 0, 0]
@@ -15,7 +16,7 @@ class Game:
         self.best_hand_columns = [0, 0, 0, 0, 0]
         self.score = 0
         self.initialize_board()
-        self.game_loop()
+        #self.game_loop()
 
         self.poker_hands = {
             'No Hand': 0,
@@ -32,7 +33,7 @@ class Game:
 
     def game_loop(self):
         #self.print_board()
-        #'''
+        '''
         while len(self.deck) > 27: # refactor this
             self.calculate_score()
             self.print_score()
@@ -43,29 +44,17 @@ class Game:
         self.calculate_score()
         self.print_board()
         print('Game over! Your score is:', self.score)
-        #'''
+        '''
 
     def initialize_board(self):
         for i in range(5):
             self.board[i][0] = self.deck.deal_card()
     
-    def print_board(self):
-        for row in self.board:
-            for card in row:
-                print(card, end=' ')
-            print()    
+    def get_board(self):
+        return self.board
 
-    def print_score(self):
-        print('rows:')
-        print(self.scoreboard_rows)
-        print('columns:')
-        print(self.scoreboard_columns)
-        print('Your best hand in each row:')
-        print(self.best_hand_row)
-        print('Your best hand in each column:')
-        print(self.best_hand_columns)
-        print('Your score is:', self.score)
-
+    #for text-based game
+    ''' 
     def play(self):
         card = self.deck.deal_card()
 
@@ -77,15 +66,19 @@ class Game:
             success = self.place_card(card, row)
             if not success:
                 print('Row', row, 'is full. Try again.')
+    '''
 
-    def place_card(self, card, row):
-        if row >= 1 and row <= 5 and None in self.board[row - 1]:
-            index = self.board[row - 1].index(None)
-            self.board[row - 1][index] = card
+    def place_card(self, row):
+        if row >= 0 and row <= 5 and None in self.board[row] and None in self.board[row]:
+            index = self.board[row].index(None)
+            self.board[row][index] = self.delt_card
+            self.new_delt_card()
             return True
         return False
 
-    def calculate_score(self):       
+    def calculate_score(self):
+        self.score = 0
+
         for i in range(5):
             column = [self.board[j][i] for j in range(5)]
             row = self.board[i]
@@ -124,7 +117,7 @@ class Game:
 
         # Check for best poker hands
         if max_suit == 5 and straight:
-            if 13 in freq and 14 in freq:
+            if freq[13] and freq[14]:
                 return 9
             return 8
             
@@ -187,3 +180,15 @@ class Game:
         else:
             score = 0
         return score
+
+    def get_delt_card(self):
+        return self.delt_card
+    
+    def new_delt_card(self):
+        self.delt_card = self.deck.deal_card()
+
+    def get_score_rows(self):
+        return self.scoreboard_rows
+    
+    def get_score_columns(self):
+        return self.scoreboard_columns
