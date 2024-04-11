@@ -12,3 +12,6 @@
 - Added invoke-tasks for start, test and test coverage
 - Restructuring the code
 - Updated README.md
+
+## Week 4
+- Refactored code with pylint suggestions

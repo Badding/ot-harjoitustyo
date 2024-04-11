@@ -7,18 +7,21 @@ class Deck:
         self.create_deck()
 
     def create_deck(self):
-        suits = [n for n in range(1, 5)]
-        ranks = [n for n in range(2, 15)]
+        suits = list(range(1, 5))
+        ranks = list(range(2, 15))
         for suit in suits:
             for rank in ranks:
                 card = Card(rank, suit)
                 self.cards.append(card)
 
-    def shuffle_deck(self):       
+    def shuffle_deck(self):
         shuffle(self.cards)
-    
+
     def deal_card(self):
         return self.cards.pop()
-    
+
+    def get_top_card(self):
+        return self.cards[-1]
+
     def __len__(self):
         return len(self.cards)

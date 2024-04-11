@@ -11,3 +11,4 @@
 | 31.3. | 2    | Continued gameview
 |  6.4. | 2    | Fixin bugs in the UI
 |  7.4. | 3    | Made tests and added invoke-tasks
+| 11.4. | 2    | Refactored code with pylint suggestions

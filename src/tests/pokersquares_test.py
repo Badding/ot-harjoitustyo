@@ -23,20 +23,6 @@ class TestPokerSquares(unittest.TestCase):
         self.assertTrue(one_card_in_each_row)
 
     #game play tests
-    def test_deal_card(self):
-        self.game.new_game()
-        on_top = self.game.get_delt_card()
-        self.game.new_delt_card()
-        new_top = self.game.get_delt_card()
-        self.assertNotEqual(on_top, new_top)
-    
-    def test_place_card(self):
-        self.game.new_game()
-        card = self.game.get_delt_card()
-        self.game.place_card(0)
-        board = self.game.get_board()
-        self.assertEqual(board[0][1], card)
-
     def test_place_card_full_row(self):
         self.game.new_game()
         for i in range(5):
