@@ -1,80 +1,67 @@
-from tkinter import ttk, constants, Canvas
+import customtkinter as ctk
+
 
 class LoginView:
-    def __init__(self, root):
+    def __init__(self, root, handle_quickplay):
         self._root = root
-        self._frame = None
+        self._handle_quickplay = handle_quickplay
+        self._frame = ctk.CTkFrame(master=self._root)
 
-        '''
-        self.username_label = ttk.Label(master=self._frame, text="Username")
-        self.username_entry = ttk.Entry(master=self._frame)
+        self._frame.columnconfigure((0, 1, 2, 3), weight=1, uniform='a')
+        self._frame.rowconfigure((0, 1, 2, 3, 4), weight=1, uniform='a')
 
-        self.password_label = ttk.Label(master=self._frame, text="Password")
-        self.password_entry = ttk.Entry(master=self._frame)
+        self._frame.place(x=0, y=0, relwidth=1, relheight=1)
 
-        self.login_button = ttk.Button(
+        self._title_label = ctk.CTkLabel(
+            self._frame, text="Poker Squares", font=("Lobster two", 50))
+        self.username_label = ctk.CTkLabel(master=self._frame, text="Username")
+        self.username_entry = ctk.CTkEntry(master=self._frame)
+
+        self.password_label = ctk.CTkLabel(self._frame, text="Password")
+        self.password_entry = ctk.CTkEntry(self._frame)
+
+        self.login_button = ctk.CTkButton(
             master=self._frame,
             text="Login",
             command=self._login_button_click
         )
-        self.create_user_button = ttk.Button(
+        self.create_user_button = ctk.CTkButton(
             master=self._frame,
             text="Create User",
             command=self._create_user_button_click
         )
-        '''
-        self._initialize()
-        
+        self.create_quickplay_button = ctk.CTkButton(
+            master=self._frame,
+            text="Quick Play",
+            command=self._handle_quickplay
+        )
+
+        # self._initialize()
+        self._title_label.grid(row=0, column=1, columnspan=2)
+        self.username_label.grid(row=1, column=1, pady=0, padx=10, sticky="e")
+        self.username_entry.grid(row=1, column=2, pady=0, padx=10, sticky="w")
+
+        self.password_label.grid(row=2, column=1, pady=0, padx=10, sticky="en")
+        self.password_entry.grid(row=2, column=2, pady=0, padx=10, sticky="wn")
+
+        self.login_button.grid(row=3, column=1, pady=0, padx=10, sticky="en")
+        self.create_user_button.grid(
+            row=3, column=2, pady=0, padx=10, sticky="wn")
+        self.create_quickplay_button.grid(
+            row=4, column=1, pady=0, padx=10, columnspan=2)
+
+    def _initialize(self):
+        pass
+
     def _login_button_click(self):
         pass
 
     def _create_user_button_click(self):
         pass
-    
-    def _quick_play_button_click(self):
-        pass
 
     def pack(self):
-        self._frame.pack(fill=constants.X)
-    
+        pass
+        # self._frame.pack(fill=constants.X)
+
     def destroy(self):
         self._frame.destroy()
-
-    def _initialize(self):
-        self._frame = ttk.Frame(master=self._root)
-
-        username_label = ttk.Label(master=self._frame, text="Username")
-        username_entry = ttk.Entry(master=self._frame)
-
-        password_label = ttk.Label(master=self._frame, text="Password")
-        password_entry = ttk.Entry(master=self._frame)
-
-        label = ttk.Label(master=self._frame, text="Poker Squares", font=("Lobster two", 42)) 
-
-        login_button = ttk.Button(master=self._frame, text="Login", command=self._login_button_click)
-        create_button = ttk.Button(master=self._frame, text="New Account", command=self._create_user_button_click)
-        quick_play_button = ttk.Button(master=self._frame, text="Quick Play", command=self._quick_play_button_click)
-
-        
-        #canvas = Canvas(master=self._frame, width=200, height=200)
-        #image = canvas.create_image(0, 0, anchor="nw", image=my_image)
-        
-        self._frame.grid(row=0, column=0, sticky=(constants.N, constants.W, constants.E, constants.S))
-        self._frame.grid_rowconfigure((1,2), weight=1)
-
-
-        self._frame.grid_rowconfigure(3, weight=2)
-        self._frame.grid_columnconfigure((0,1), weight=1)
-        label.grid(row=0, column=0, columnspan=2, pady=50)
-        username_label.grid(row=1, column=0, sticky="e", pady=5)
-        username_entry.grid(row=1, column=1, sticky="w", pady=5)
-
-        password_label.grid(row=2, column=0, sticky="e", pady=5)
-        password_entry.grid(row=2, column=1, sticky="w", pady=5)
-        login_button.grid(row=3, column=1, sticky="w", pady=5)
-        create_button.grid(row=4, column=1, sticky="w", pady=5)
-        quick_play_button.grid(row=5, column=1, sticky="w", pady=5)
-        #canvas.grid(row=6, column=0, columnspan=2, pady=10)
-
-
-    

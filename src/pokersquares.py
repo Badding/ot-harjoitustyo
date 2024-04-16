@@ -1,5 +1,6 @@
 from deck import Deck
 
+
 class Game:
     def __init__(self):
         self.deck = None
@@ -11,17 +12,18 @@ class Game:
         self.score = 0
 
         self.poker_hands = {
-            'No Hand': 0,
-            'One Pair': 1,
-            'Two Pair': 2,
-            'Three of a Kind': 3,
-            'Straight': 4,
-            'Flush': 5,
-            'Full House': 6,
-            'Four of a Kind': 7,
-            'Straight Flush': 8,
-            'Royal Flush': 9
+            0: 'No Hand',
+            1: 'One Pair',
+            2: 'Two Pair',
+            3: 'Three of a Kind',
+            4: 'Straight',
+            5: 'Flush',
+            6: 'Full House',
+            7: 'Four of a Kind',
+            8: 'Straight Flush',
+            9: 'Royal Flush'
         }
+
     def new_game(self):
         self.deck = Deck()
         self.deck.shuffle_deck()
@@ -44,8 +46,9 @@ class Game:
     def place_card(self, row):
         if 0 <= row <= 5 and None in self.board[row]:
             index = self.board[row].index(None)
-            self.board[row][index] = self.deck.get_top_card() # virhe?
+            self.board[row][index] = self.deck.get_top_card()  # virhe?
             self.deck.deal_card()
+            self.calculate_score()
             return True
         return False
 
@@ -71,7 +74,8 @@ class Game:
             self.score += row_score + column_score
 
     def check_row(self, row):
-        freq = {2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0}
+        freq = {2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0,
+                9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0}
         suits = {1: 0, 2: 0, 3: 0, 4: 0}
 
         if None in row:
@@ -145,6 +149,9 @@ class Game:
         }
         return score_dict.get(hand)
 
+    def get_hand_name(self, hand):
+        return self.poker_hands.get(hand)
+
     def get_delt_card(self):
         return self.deck.get_top_card()
 
@@ -153,3 +160,12 @@ class Game:
 
     def get_score_columns(self):
         return self.scoreboard_columns
+
+    def get_total_score(self):
+        return self.score
+
+    def get_best_hand_row(self):
+        return self.best_hand_row
+
+    def get_best_hand_columns(self):
+        return self.best_hand_columns

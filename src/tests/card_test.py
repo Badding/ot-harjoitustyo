@@ -1,6 +1,7 @@
 import unittest
 from card import Card
 
+
 class TestCard(unittest.TestCase):
     def setUp(self):
         pass
@@ -54,7 +55,7 @@ class TestCard(unittest.TestCase):
     def test_get_suit_symbol_heart(self):
         card = Card(5, 3)
         self.assertEqual(card.get_suit_symbol(), '♥')
-    
+
     def test_get_suit_symbol_diamond(self):
         card = Card(5, 4)
         self.assertEqual(card.get_suit_symbol(), '♦')
@@ -77,9 +78,8 @@ class TestCard(unittest.TestCase):
         card1 = Card(5, 1)
         card2 = Card(6, 1)
         self.assertTrue(card1 < card2)
-    
+
     def test_lt_larger(self):
         card1 = Card(6, 1)
         card2 = Card(5, 1)
         self.assertFalse(card1 < card2)
-

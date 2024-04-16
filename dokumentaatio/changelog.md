@@ -14,4 +14,8 @@
 - Updated README.md
 
 ## Week 4
+- Added Pylint
+- Added lint and format tasks
 - Refactored code with pylint suggestions
+- Finished Gameview
+- Added login screen 
