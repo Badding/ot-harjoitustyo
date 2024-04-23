@@ -73,9 +73,5 @@ class LoginView:
         else:
             self.error_message_label.grid(row=3, column=1, columnspan=2)
 
-    def pack(self):
-        pass
-        # self._frame.pack(fill=constants.X)
-
     def destroy(self):
         self._frame.destroy()

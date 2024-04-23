@@ -20,11 +20,11 @@ class AppService:
     def create_user(self, username, password):
         already_exists = ur.get_user(username)
 
-        if not already_exists:
-            ur.add_user(username, password)
-            return True
+        if already_exists:
+            return False
 
-        return False
 
+        ur.add_user(username, password)
+        return True
 
 app_service = AppService()

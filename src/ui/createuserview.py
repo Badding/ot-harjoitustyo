@@ -8,9 +8,7 @@ class CreateUserView:
         self._handle_back = handle_back
         self._frame = ctk.CTkFrame(master=self._root)
 
-        self._frame.columnconfigure((0, 1, 2, 3), weight=1),  # uniform='a')
-        # self._frame.rowconfigure((0, 1), weight=1 )#, uniform='a')
-        # self._frame.rowconfigure((2,3,4,5), weight=2 )#, uniform='a')
+        self._frame.columnconfigure((0, 1, 2, 3), weight=1)
 
         self._frame.place(x=0, y=0, relwidth=1, relheight=1)
 
@@ -36,7 +34,7 @@ class CreateUserView:
             corner_radius=8,
         )
         self.user_created_label = ctk.CTkLabel(
-            self._frame, text="User created",
+            self._frame, text="User created!",
             fg_color="green",
             corner_radius=8,
 
@@ -102,10 +100,6 @@ class CreateUserView:
             else:
                 self.error_message_text.set("Username already exists")
                 self.error_message_label.grid(row=5, column=1, columnspan=2)
-
-    def pack(self):
-        pass
-        # self._frame.pack(fill=constants.X)
 
     def destroy(self):
         self._frame.destroy()

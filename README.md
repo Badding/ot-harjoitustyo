@@ -8,6 +8,7 @@ The project is a part of a course at the University of Helsinki.
 
 ## Documents
 * [Link to Requirements specification](dokumentaatio/vaatimusmaarittelu.md)
+* [Link to Architecture](dokumentaatio/arkkitehtuuri.md)
 * [Link to Changelog](dokumentaatio/changelog.md)
 * [Link to Time used](dokumentaatio/tuntikirjanpito.md)
 
@@ -25,6 +26,10 @@ git clone https://github.com/Badding/ot-harjoitustyo.git
 Install
 ```bash
 poetry install
+```
+Initialize the database for users
+```bash
+poetry run invoke db-init
 ```
 Run app
 ```bash

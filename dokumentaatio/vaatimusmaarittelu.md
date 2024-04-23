@@ -22,25 +22,25 @@ This version outlines the flow of the application more clearly, detailing the se
 
 ### Accounts
 
-* Create a new user account
-* Login and logout
-* Change user
+- [x] Create a new user account
+- [x] Login
+- [ ] Logout
+- [ ] Change user
 
 ### While playing
  
-* Quick play without user account
-* Graphics showing current game state
-* Information screen with game rules
-* Calculate current score after every move
+- [x] Quick play without user account
+- [x] Graphics show current game state
+- [x] Calculate current score after every move
+- [x] Show score on each row/column
+- [ ] Information screen with game rules
 
 ### After Game over
 
-* Show Stats After the Game Ends
-* Start a new game
-
+- [ ] Show stats sfter the game ends
+- [x] Information screen with game rules start a new game
 
 ## Future ideas
 * save game
 * options for different rule sets for poker squares
 * different solitaire games 
-

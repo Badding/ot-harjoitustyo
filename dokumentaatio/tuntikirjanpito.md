@@ -14,5 +14,8 @@
 | 11.4. | 2    | Refactored code with pylint suggestions |
 | 14.4. | 5    | Added score calculating to gameview and finished the gameview. |
 | 15.4. | 2    | Added login screen. |
+| 21.4. | 3    | Researched about how to implement database to project |
+| 22.4. | 3    | Implemented database |
+| 23.4. | 4    | implemented user login and create |
 |-------|------|
-|Sum    |31
+|Sum    | 41

@@ -18,4 +18,12 @@
 - Added lint and format tasks
 - Refactored code with pylint suggestions
 - Finished Gameview
-- Added login screen 
+- Added login screen
+
+## Week 5
+- Added class diagram
+- Added sqlite to project
+- Implimented user creation and login
+- Restructuring code
+- Released version: viikko5
+- Updated documents and README.md
