@@ -1,6 +1,6 @@
 import unittest
-from pokersquares import Game
-import card
+from repositories.game_repository import Game
+import entities.card as card
 
 
 class TestPokerSquares(unittest.TestCase):

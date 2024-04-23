@@ -2,7 +2,6 @@
 from ui.gameview import GameView
 from ui.loginview import LoginView
 from ui.createuserview import CreateUserView
-from pokersquares import Game
 
 
 class UI:
@@ -12,10 +11,6 @@ class UI:
         self.root.geometry("1200x600")
         self.root.resizable(False, False)
         self._current_view = None
-
-        # for testing
-        self._game = Game()
-        self._game.new_game()
 
     def run(self):
 
@@ -41,14 +36,10 @@ class UI:
             self._handle_create_user
         )
 
-        # self._current_view.pack()
-
     def _show_game(self):
         self._hide_current_view()
 
-        self._current_view = GameView(self.root, self._game)
-
-        # self._current_view.pack()
+        self._current_view = GameView(self.root)
 
     def _hide_current_view(self):
         if self._current_view:

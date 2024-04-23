@@ -1,4 +1,4 @@
-from deck import Deck
+from entities.deck import Deck
 
 
 class Game:
@@ -175,8 +175,11 @@ class Game:
     def get_total_score(self):
         return self.score
 
-    def get_best_hand_row(self):
+    def get_best_hand_rows(self):
         return self.best_hand_row
 
     def get_best_hand_columns(self):
         return self.best_hand_columns
+
+
+game = Game()

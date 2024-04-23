@@ -1,13 +1,13 @@
 import customtkinter as ctk
-from tkinter import constants
+from services.app_service import app_service
 
 
 class GameView:
-    def __init__(self, root, game):
+    def __init__(self, root):
         self._root = root
 
         self._frame = None
-        self._gamestate = game
+        self._app_service = app_service
         self._buttons = []
         self._row_score_labels = []
         self._column_score_labels = []
@@ -29,9 +29,6 @@ class GameView:
         self._frame.place(x=0, y=0, relwidth=0.7, relheight=1)
         self._infoframe.place(relx=0.7, y=0, relwidth=0.3, relheight=1)
 
-        # self._frame.pack()
-        # self._infoframe.pack()
-
         self._frame.columnconfigure((0, 1, 2, 3, 4, 5), weight=1, uniform='a')
         self._frame.rowconfigure(
             (0, 1, 2, 3, 4, 5), weight=1, minsize=25, uniform='a')
@@ -39,19 +36,16 @@ class GameView:
         self._infoframe.rowconfigure((1, 2, 3), weight=1)
         self._infoframe.columnconfigure((1, 2, 3), weight=1)
 
+        self._app_service.new_game()
         self.init_scores()
         self.init_board()
-        self.init_info()  # frame erikseen
-
-    def pack(self):
-        pass
-        # self._frame.pack(fill=constants.X)
+        self.init_info()
 
     def _button_callback(self, row):
-        card = self._gamestate.get_delt_card()
-        board = self._gamestate.get_board()
+        card = self._app_service.get_delt_card()
+        board = self._app_service.get_board()
         index = board[row].index(None)
-        card_placed = self._gamestate.place_card(row)
+        card_placed = self._app_service.place_card(row)
 
         if card_placed:
             self._buttons[row].destroy()
@@ -60,9 +54,8 @@ class GameView:
             self._update_delt_card()
             self._update_total_score()
 
-            if self._gamestate.is_game_over():
+            if self._app_service.is_game_over():
                 self._place_newgame_button()
-            # add check if game is over, show new game button
 
         if None in board[row]:
             self._buttons[row] = self._place_button(row, index + 1)
@@ -71,7 +64,7 @@ class GameView:
         return lambda: self._button_callback(row)
 
     def _init_newgame(self):
-        self._gamestate.new_game()
+        self._app_service.new_game()
         self._initialize()
 
     def _place_newgame_button(self):
@@ -93,13 +86,12 @@ class GameView:
                              fg_color="white",
                              text_color=card.get_color(),
                              corner_radius=8)
-        label.grid(row=row, column=label_index, pady=10, padx=10)  # oikea
-        # label.grid(row=row, column=label_index)
+        label.grid(row=row, column=label_index, pady=10, padx=10)
 
         return True
 
     def init_board(self):
-        board = self._gamestate.get_board()
+        board = self._app_service.get_board()
         for i in range(5):
             card = board[i][0]
             self._place_label(i, 0, card)
@@ -107,13 +99,11 @@ class GameView:
             button = self._place_button(i, 1)
             self._buttons.append(button)
 
-        # self._frame.grid(row=0, column=0) #not sure if this is necessary
-
     def init_scores(self):
         self._row_score_labels = []
         self._column_score_labels = []
-        row_scores = self._gamestate.get_score_rows()
-        column_scores = self._gamestate.get_score_columns()
+        row_scores = self._app_service.get_score_rows()
+        column_scores = self._app_service.get_score_columns()
 
         for i in range(5):
             row_label = ctk.CTkLabel(
@@ -128,34 +118,34 @@ class GameView:
             self._column_score_labels.append(column_label)
 
     def _update_scores(self):
-        row_scores = self._gamestate.get_score_rows()
-        column_scores = self._gamestate.get_score_columns()
+        row_scores = self._app_service.get_score_rows()
+        column_scores = self._app_service.get_score_columns()
 
         for i in range(5):
             self._row_score_labels[i].configure(text=row_scores[i])
             self._column_score_labels[i].configure(text=column_scores[i])
 
     def _update_delt_card(self):
-        delt_card = self._gamestate.get_delt_card()
+        delt_card = self._app_service.get_delt_card()
 
         self.delt_card_label.configure(
             text=delt_card.get_rank_symbol() + "\n" + delt_card.get_suit_symbol())
         self.delt_card_label.configure(text_color=delt_card.get_color())
 
     def _update_total_score(self):
-        total_score = self._gamestate.get_total_score()
+        total_score = self._app_service.get_total_score()
         self._total_score_label.configure(text=f"Score: {total_score}")
 
     def _update_infoframe_hands(self):
         # not yet implemented
-        best_hands_row = self._gamestate.get_best_hands_row()
-        best_hands_column = self._gamestate.get_best_hands_column()
+        best_hands_row = self._app_service.get_best_hand_rows()
+        best_hands_column = self._app_service.get_best_hand_columns()
 
         for i in range(5):
             pass
 
     def init_info(self):
-        delt_card = self._gamestate.get_delt_card()
+        delt_card = self._app_service.get_delt_card()
         self.delt_card_label = ctk.CTkLabel(self._infoframe, width=55, height=90, font=("Lobster two", 20),
                                             text=delt_card.get_rank_symbol() + "\n" + delt_card.get_suit_symbol(),
                                             fg_color="white",
@@ -164,7 +154,7 @@ class GameView:
 
         self.delt_card_label.grid(row=0, column=2, pady=30)
 
-        total_score = self._gamestate.get_total_score()
+        total_score = self._app_service.get_total_score()
 
         self._total_score_label = ctk.CTkLabel(
             self._infoframe, text=f"Score: {total_score}", font=("Lobster two", 24))

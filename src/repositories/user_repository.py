@@ -7,7 +7,6 @@ class UserRepository:
         self._cursor = connection.cursor()
 
     def add_user(self, username, password):
-
         self._cursor.execute('''
             INSERT INTO users (username, password) VALUES (?, ?);
         ''', (username, password))
