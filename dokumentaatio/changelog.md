@@ -21,7 +21,7 @@
 - Added login screen
 
 ## Week 5
-- Added class diagram
+- Added arkkitehtuuri to documentation
 - Added sqlite to project
 - Implimented user creation and login
 - Restructuring code

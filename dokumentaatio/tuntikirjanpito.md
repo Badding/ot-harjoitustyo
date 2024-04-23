@@ -16,6 +16,6 @@
 | 15.4. | 2    | Added login screen. |
 | 21.4. | 3    | Researched about how to implement database to project |
 | 22.4. | 3    | Implemented database |
-| 23.4. | 4    | implemented user login and create |
+| 23.4. | 6    | implemented user login and create, more tests, restructuring code |
 |-------|------|
-|Sum    | 41
+|Sum    | 43   |
