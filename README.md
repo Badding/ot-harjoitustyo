@@ -7,7 +7,7 @@ The project is a part of a course at the University of Helsinki.
 
 
 ## Documents
-* [Link to Requirements specification](dokumentaatio/vaatimusmaarittelu.md)
+* [Link to Requirements specification](dokumentaatio/vaatimusmaarittely.md)
 * [Link to Architecture](dokumentaatio/arkkitehtuuri.md)
 * [Link to Changelog](dokumentaatio/changelog.md)
 * [Link to Time used](dokumentaatio/tuntikirjanpito.md)
