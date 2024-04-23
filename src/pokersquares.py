@@ -28,6 +28,7 @@ class Game:
         self.deck = Deck()
         self.deck.shuffle_deck()
 
+        self.score = 0
         self.board = [[None for _ in range(5)] for _ in range(5)]
         self.scoreboard_rows = [0, 0, 0, 0, 0]
         self.scoreboard_columns = [0, 0, 0, 0, 0]
@@ -148,6 +149,16 @@ class Game:
             0: 0     # No Hand
         }
         return score_dict.get(hand)
+
+    def is_game_over(self):
+        game_over = True
+
+        for row in self.board:
+            if None in row:
+                game_over = False
+                break
+
+        return game_over
 
     def get_hand_name(self, hand):
         return self.poker_hands.get(hand)

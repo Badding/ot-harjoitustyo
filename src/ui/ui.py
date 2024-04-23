@@ -1,6 +1,7 @@
 # from loginview import LoginView
 from ui.gameview import GameView
 from ui.loginview import LoginView
+from ui.createuserview import CreateUserView
 from pokersquares import Game
 
 
@@ -19,21 +20,26 @@ class UI:
     def run(self):
 
         self._show_login()
-        # self._show_game()
 
     def _handle_login(self):
-        pass
+        self._show_login()
 
     def _handle_quickplay(self):
         self._show_game()
 
     def _handle_create_user(self):
-        pass
+        self._hide_current_view()
+
+        self._current_view = CreateUserView(self.root, self._handle_login)
 
     def _show_login(self):
         self._hide_current_view()
 
-        self._current_view = LoginView(self.root, self._handle_quickplay)
+        self._current_view = LoginView(
+            self.root,
+            self._handle_quickplay,
+            self._handle_create_user
+        )
 
         # self._current_view.pack()
 

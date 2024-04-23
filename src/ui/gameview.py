@@ -16,10 +16,7 @@ class GameView:
         self._infoframe_hands = None
 
         self._initialize()
-        self.init_scores()
-        self.init_board()
 
-        self.init_info()  # frame erikseen
         # self.score_frame()
 
     def destroy(self):
@@ -42,6 +39,10 @@ class GameView:
         self._infoframe.rowconfigure((1, 2, 3), weight=1)
         self._infoframe.columnconfigure((1, 2, 3), weight=1)
 
+        self.init_scores()
+        self.init_board()
+        self.init_info()  # frame erikseen
+
     def pack(self):
         pass
         # self._frame.pack(fill=constants.X)
@@ -59,6 +60,8 @@ class GameView:
             self._update_delt_card()
             self._update_total_score()
 
+            if self._gamestate.is_game_over():
+                self._place_newgame_button()
             # add check if game is over, show new game button
 
         if None in board[row]:
@@ -67,8 +70,14 @@ class GameView:
     def make_command(self, row):
         return lambda: self._button_callback(row)
 
+    def _init_newgame(self):
+        self._gamestate.new_game()
+        self._initialize()
+
     def _place_newgame_button(self):
-        pass
+        new_game_button = ctk.CTkButton(
+            self._infoframe, text="New Game", command=self._init_newgame)
+        new_game_button.grid(row=2, column=2)
 
     def _place_button(self, row, column):
         button = ctk.CTkButton(self._frame, text="", width=40, height=80,
@@ -101,6 +110,8 @@ class GameView:
         # self._frame.grid(row=0, column=0) #not sure if this is necessary
 
     def init_scores(self):
+        self._row_score_labels = []
+        self._column_score_labels = []
         row_scores = self._gamestate.get_score_rows()
         column_scores = self._gamestate.get_score_columns()
 
@@ -136,6 +147,7 @@ class GameView:
         self._total_score_label.configure(text=f"Score: {total_score}")
 
     def _update_infoframe_hands(self):
+        # not yet implemented
         best_hands_row = self._gamestate.get_best_hands_row()
         best_hands_column = self._gamestate.get_best_hands_column()
 
@@ -153,6 +165,7 @@ class GameView:
         self.delt_card_label.grid(row=0, column=2, pady=30)
 
         total_score = self._gamestate.get_total_score()
+
         self._total_score_label = ctk.CTkLabel(
             self._infoframe, text=f"Score: {total_score}", font=("Lobster two", 24))
         self._total_score_label.grid(row=1, column=2)
