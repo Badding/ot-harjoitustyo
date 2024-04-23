@@ -27,7 +27,7 @@ Install
 ```bash
 poetry install
 ```
-Initialize the database for users
+Run before starting the app
 ```bash
 poetry run invoke db-init
 ```
