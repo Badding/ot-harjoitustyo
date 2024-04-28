@@ -17,5 +17,6 @@
 | 21.4. | 3    | Researched about how to implement database to project |
 | 22.4. | 3    | Implemented database |
 | 23.4. | 6    | implemented user login and create, more tests, restructuring code |
+| 28.4. | 4    | Added help view, logout feature, refactored code so the game can continue after pausing
 |-------|------|
-|Sum    | 43   |
+|Sum    | 47   |
