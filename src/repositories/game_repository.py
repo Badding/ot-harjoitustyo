@@ -14,7 +14,7 @@ class Game:
         self.poker_hands = {
             0: 'No Hand',
             1: 'One Pair',
-            2: 'Two Pair',
+            2: 'Two Pairs',
             3: 'Three of a Kind',
             4: 'Straight',
             5: 'Flush',
@@ -151,6 +151,9 @@ class Game:
         return score_dict.get(hand)
 
     def is_game_over(self):
+        if self.deck is None:
+            return True
+
         game_over = True
 
         for row in self.board:
@@ -162,6 +165,9 @@ class Game:
 
     def get_hand_name(self, hand):
         return self.poker_hands.get(hand)
+
+    def get_hand_score(self, hand):
+        return self.get_score(hand)
 
     def get_delt_card(self):
         return self.deck.get_top_card()

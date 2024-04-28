@@ -3,12 +3,12 @@ from services.app_service import app_service
 
 
 class GameView:
-    def __init__(self, root):
+    def __init__(self, root, handle_help):
         self._root = root
-
+        self._handle_help = handle_help
         self._frame = None
         self._app_service = app_service
-        self._buttons = []
+        self._buttons = [None] * 5
         self._row_score_labels = []
         self._column_score_labels = []
         self.delt_card_label = None
@@ -36,7 +36,9 @@ class GameView:
         self._infoframe.rowconfigure((1, 2, 3), weight=1)
         self._infoframe.columnconfigure((1, 2, 3), weight=1)
 
-        self._app_service.new_game()
+        if self._app_service.is_game_over():
+            self._app_service.new_game()
+
         self.init_scores()
         self.init_board()
         self.init_info()
@@ -48,7 +50,8 @@ class GameView:
         card_placed = self._app_service.place_card(row)
 
         if card_placed:
-            self._buttons[row].destroy()
+            # self._buttons[row].destroy()
+            self._buttons[row] = None
             self._place_label(row, index, card)
             self._update_scores()
             self._update_delt_card()
@@ -70,7 +73,7 @@ class GameView:
     def _place_newgame_button(self):
         new_game_button = ctk.CTkButton(
             self._infoframe, text="New Game", command=self._init_newgame)
-        new_game_button.grid(row=2, column=2)
+        new_game_button.grid(row=3, column=2)
 
     def _place_button(self, row, column):
         button = ctk.CTkButton(self._frame, text="", width=40, height=80,
@@ -93,11 +96,25 @@ class GameView:
     def init_board(self):
         board = self._app_service.get_board()
         for i in range(5):
-            card = board[i][0]
-            self._place_label(i, 0, card)
+            row_complete = False
 
-            button = self._place_button(i, 1)
-            self._buttons.append(button)
+            for j in range(5):
+                if row_complete:
+                    continue
+
+                if board[i][j] is not None:
+                    card = board[i][j]
+                    self._place_label(i, j, card)
+                else:
+                    button = self._place_button(i, j)
+                    self._buttons.append(button)
+                    row_complete = True
+
+            # card = board[i][0]
+            # self._place_label(i, 0, card)
+
+            # button = self._place_button(i, 1)
+            # self._buttons.append(button)
 
     def init_scores(self):
         self._row_score_labels = []
@@ -145,6 +162,12 @@ class GameView:
             pass
 
     def init_info(self):
+        helpview = ctk.CTkButton(
+            self._infoframe, text="i", command=self._handle_help,
+            width=40, height=40,
+            font=("Lobster two", 30))
+        # helpview.grid(row=0, column=2)
+        helpview.place(relx=0.95, rely=0.1, anchor="se")
         delt_card = self._app_service.get_delt_card()
         self.delt_card_label = ctk.CTkLabel(self._infoframe, width=55, height=90, font=("Lobster two", 20),
                                             text=delt_card.get_rank_symbol() + "\n" + delt_card.get_suit_symbol(),
@@ -152,12 +175,12 @@ class GameView:
                                             text_color=delt_card.get_color(),
                                             corner_radius=8)
 
-        self.delt_card_label.grid(row=0, column=2, pady=30)
+        self.delt_card_label.grid(row=1, column=2, pady=30)
 
         total_score = self._app_service.get_total_score()
 
         self._total_score_label = ctk.CTkLabel(
             self._infoframe, text=f"Score: {total_score}", font=("Lobster two", 24))
-        self._total_score_label.grid(row=1, column=2)
+        self._total_score_label.grid(row=2, column=2)
 
         # self._infoframe_hands = ctk.CTkLabel(self._infoframe, text="", font=("Lobster two", 24))

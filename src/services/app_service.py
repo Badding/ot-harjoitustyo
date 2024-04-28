@@ -17,6 +17,9 @@ class AppService:
 
         return True
 
+    def logout(self):
+        self._user = None
+
     def create_user(self, username, password):
         already_exists = ur.get_user(username)
 
@@ -57,6 +60,12 @@ class AppService:
 
     def get_best_hand_columns(self):
         return self._game.get_best_hand_columns()
+
+    def get_hand_name(self, hand):
+        return self._game.get_hand_name(hand)
+
+    def get_hand_score(self, hand):
+        return self._game.get_score(hand)
 
 
 app_service = AppService()

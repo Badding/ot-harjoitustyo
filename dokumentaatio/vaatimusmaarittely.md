@@ -24,8 +24,8 @@ This version outlines the flow of the application more clearly, detailing the se
 
 - [x] Create a new user account
 - [x] Login
-- [ ] Logout
-- [ ] Change user
+- [x] Logout
+- [x] Change user
 
 ### While playing
  
@@ -33,12 +33,13 @@ This version outlines the flow of the application more clearly, detailing the se
 - [x] Graphics show current game state
 - [x] Calculate current score after every move
 - [x] Show score on each row/column
-- [ ] Information screen with game rules
+- [x] Information screen with game rules
 
 ### After Game over
 
-- [ ] Show stats sfter the game ends
-- [x] Information screen with game rules start a new game
+- [ ] Show stats after the game ends
+- [ ] Save stats to database, best score, timeplayed, number of games played, etc.
+- [x] Start a new game after game over
 
 ## Future ideas
 * save game

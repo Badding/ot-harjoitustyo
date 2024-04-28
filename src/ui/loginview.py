@@ -9,6 +9,8 @@ class LoginView:
         self._handle_create_user = handle_create_user
         self._frame = ctk.CTkFrame(master=self._root)
 
+        app_service.logout()
+
         self._frame.columnconfigure((0, 1, 2, 3), weight=1, uniform='a')
         self._frame.rowconfigure((0, 1, 2, 3, 4), weight=1, uniform='a')
 

@@ -30,6 +30,20 @@ class TestPokerSquares(unittest.TestCase):
             self.game.place_card(0)
         self.assertFalse(self.game.place_card(0))
 
+    def test_is_game_over_false(self):
+        self.game.new_game()
+        self.assertFalse(self.game.is_game_over())
+
+    def test_is_game_over_not_started(self):
+        self.assertTrue(self.game.is_game_over())
+
+    def test_is_game_over_true(self):
+        self.game.new_game()
+        for i in range(5):
+            for j in range(5):
+                self.game.place_card(i)
+        self.assertTrue(self.game.is_game_over())
+
     # straight checks tests
     def test_check_for_straight(self):
         row = [card.Card(2, 1), card.Card(4, 2), card.Card(
@@ -169,7 +183,7 @@ class TestPokerSquares(unittest.TestCase):
     def test_get_hand_name(self):
         self.assertEqual(self.game.get_hand_name(0), "No Hand")
         self.assertEqual(self.game.get_hand_name(1), "One Pair")
-        self.assertEqual(self.game.get_hand_name(2), "Two Pair")
+        self.assertEqual(self.game.get_hand_name(2), "Two Pairs")
         self.assertEqual(self.game.get_hand_name(3), "Three of a Kind")
         self.assertEqual(self.game.get_hand_name(4), "Straight")
         self.assertEqual(self.game.get_hand_name(5), "Flush")
@@ -186,3 +200,24 @@ class TestPokerSquares(unittest.TestCase):
     def test_get_total_score(self):
         self.game.new_game()
         self.assertEqual(self.game.get_total_score(), 0)
+
+    def test_get_hand_score(self):
+        self.game.new_game()
+        self.assertEqual(self.game.get_hand_score(0), 0)
+        self.assertEqual(self.game.get_hand_score(1), 2)
+        self.assertEqual(self.game.get_hand_score(2), 5)
+        self.assertEqual(self.game.get_hand_score(3), 10)
+        self.assertEqual(self.game.get_hand_score(4), 15)
+        self.assertEqual(self.game.get_hand_score(5), 20)
+        self.assertEqual(self.game.get_hand_score(6), 25)
+        self.assertEqual(self.game.get_hand_score(7), 50)
+        self.assertEqual(self.game.get_hand_score(8), 75)
+        self.assertEqual(self.game.get_hand_score(9), 100)
+
+    def test_get_best_hand_rows_newgame(self):
+        self.game.new_game()
+        self.assertEqual(self.game.get_best_hand_rows(), [0, 0, 0, 0, 0])
+
+    def test_get_best_hand_columns_newgame(self):
+        self.game.new_game()
+        self.assertEqual(self.game.get_best_hand_columns(), [0, 0, 0, 0, 0])
