@@ -32,3 +32,4 @@
 - Added HelpView for additional information view for players
 - Added Logout to HelpView
 - Refactored code, so the game can continue after pausing (for future save/load feature)
+- Commented the code with Docstring style

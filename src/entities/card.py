@@ -1,15 +1,35 @@
 class Card:
+    """A class to represent a card
+
+    Attributes:
+        rank (int): The rank of the card
+        suit (int): The suit of the card
+        suit_symbols (dict): A dictionary of suit symbols
+        rank_symbols (dict): A dictionary of rank symbols
+    """
+
     def __init__(self, rank, suit):
+        """Constructor for the Card class
+
+        Args:
+            rank (int): The rank of the card
+            suit (int): The suit of the card
+        """
+
         self.rank = rank
         self.suit = suit
-        self.suit_symbols = {1: '♣', 2: '♠', 3: '♥', 4: '♦'}  # class variable?
+        self.suit_symbols = {1: '♣', 2: '♠', 3: '♥', 4: '♦'}
         self.rank_symbols = {11: 'J', 12: 'Q', 13: 'K', 14: 'A'}
         self.color = 'black' if self.suit < 3 else 'red'
 
     def __str__(self):
+        """String representation of the card"""
+
         return str(self.rank) + str(self.suit)
 
     def __repr__(self):
+        """Representation of the card"""
+
         return self.__str__()
 
     def __lt__(self, other):

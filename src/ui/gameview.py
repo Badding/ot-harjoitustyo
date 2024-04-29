@@ -3,7 +3,18 @@ from services.app_service import app_service
 
 
 class GameView:
+    """View for the game screen"""
+
     def __init__(self, root, handle_help):
+        """Constructor for the GameView class
+
+        Args:
+            root (ctk.CTk):
+                The root window of the application
+            handle_help (function):
+                The function to call when the help button is clicked
+        """
+
         self._root = root
         self._handle_help = handle_help
         self._frame = None
@@ -20,9 +31,13 @@ class GameView:
         # self.score_frame()
 
     def destroy(self):
+        """Destroy the game view"""
+
         self._frame.destroy()
 
     def _initialize(self):
+        """Initialize the game view"""
+
         self._frame = ctk.CTkFrame(master=self._root, width=800, height=600)
         self._infoframe = ctk.CTkFrame(
             master=self._root, width=400, height=600)
@@ -44,6 +59,8 @@ class GameView:
         self.init_info()
 
     def _button_callback(self, row):
+        """Callback function for placing the card on the board"""
+
         card = self._app_service.get_delt_card()
         board = self._app_service.get_board()
         index = board[row].index(None)
@@ -64,18 +81,41 @@ class GameView:
             self._buttons[row] = self._place_button(row, index + 1)
 
     def make_command(self, row):
+        """Create a command for the button
+
+        Args:
+            row (int): The row to place the card on
+
+        Returns:
+            function: The command function
+        """
+
         return lambda: self._button_callback(row)
 
     def _init_newgame(self):
+        """Initialize a new game"""
+
         self._app_service.new_game()
         self._initialize()
 
     def _place_newgame_button(self):
+        """Place the new game button to infoframe after the game is over"""
+
         new_game_button = ctk.CTkButton(
             self._infoframe, text="New Game", command=self._init_newgame)
         new_game_button.grid(row=3, column=2)
 
     def _place_button(self, row, column):
+        """Place a button on the board
+
+        Args:
+            row (int): The row to place the button on
+            column (int): The column to place the button on
+
+        Returns:
+            ctk.CTkButton: The button that was placed
+        """
+
         button = ctk.CTkButton(self._frame, text="", width=40, height=80,
                                font=("Lobster two", 16),
                                command=self.make_command(row))
@@ -84,6 +124,19 @@ class GameView:
         return button
 
     def _place_label(self, row, label_index, card):
+        """Place a label on the board
+
+        This method places a label on the board with the rank and suit of the card
+
+        Args:
+            row (int): The row to place the label on
+            label_index (int): The column to place the label on
+            card (Card): The card to place on the label
+
+        Returns:
+            bool: True if the label was placed successfully
+        """
+
         label = ctk.CTkLabel(self._frame, width=55, height=90, font=("Lobster two", 20),
                              text=card.get_rank_symbol() + "\n" + card.get_suit_symbol(),
                              fg_color="white",
@@ -94,6 +147,11 @@ class GameView:
         return True
 
     def init_board(self):
+        """Places cards on the board and initializes the buttons for placing cards
+
+        method gets current board from app_service and places cards on the board
+        """
+
         board = self._app_service.get_board()
         for i in range(5):
             row_complete = False
@@ -110,13 +168,9 @@ class GameView:
                     self._buttons.append(button)
                     row_complete = True
 
-            # card = board[i][0]
-            # self._place_label(i, 0, card)
-
-            # button = self._place_button(i, 1)
-            # self._buttons.append(button)
-
     def init_scores(self):
+        """Initializes the score labels for the rows and columns"""
+
         self._row_score_labels = []
         self._column_score_labels = []
         row_scores = self._app_service.get_score_rows()
@@ -135,6 +189,8 @@ class GameView:
             self._column_score_labels.append(column_label)
 
     def _update_scores(self):
+        """Update the score labels for the rows and columns"""
+
         row_scores = self._app_service.get_score_rows()
         column_scores = self._app_service.get_score_columns()
 
@@ -143,6 +199,8 @@ class GameView:
             self._column_score_labels[i].configure(text=column_scores[i])
 
     def _update_delt_card(self):
+        """Update the delt card label with the new delt card"""
+
         delt_card = self._app_service.get_delt_card()
 
         self.delt_card_label.configure(
@@ -150,6 +208,8 @@ class GameView:
         self.delt_card_label.configure(text_color=delt_card.get_color())
 
     def _update_total_score(self):
+        """Update the total score label with the new total score"""
+
         total_score = self._app_service.get_total_score()
         self._total_score_label.configure(text=f"Score: {total_score}")
 
@@ -162,6 +222,8 @@ class GameView:
             pass
 
     def init_info(self):
+        """Initializes the info frame contains delt card, and total score labels and help button"""
+
         helpview = ctk.CTkButton(
             self._infoframe, text="i", command=self._handle_help,
             width=40, height=40,

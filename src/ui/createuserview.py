@@ -3,7 +3,18 @@ from services.app_service import app_service
 
 
 class CreateUserView:
+    """View for creating a new user"""
+
     def __init__(self, root, handle_back):
+        """Constructor for the CreateUserView class
+
+        Args:
+            root (ctk.CTk):
+                The root window of the application
+            handle_back (function):
+                The function to call when the back button is clicked
+        """
+
         self._root = root
         self._handle_back = handle_back
         self._frame = ctk.CTkFrame(master=self._root)
@@ -54,6 +65,11 @@ class CreateUserView:
         self._initialize()
 
     def _initialize(self):
+        """Initialize the create user view
+
+        This method places the widgets for the create user view
+        """
+
         self._title_label.grid(row=0, column=1, columnspan=2, pady=30)
         self._title_create_user_label.grid(
             row=1, column=1, columnspan=2, pady=40)
@@ -77,6 +93,13 @@ class CreateUserView:
             row=6, column=2, pady=30, padx=10, sticky="wn")
 
     def _create_user_handler(self):
+        """Handle the create user button click event
+
+        if user name and password are valid, tries to create a new user
+        if the user is created successfully, a success message is shown
+        else an error message is shown
+        """
+
         user = self.username_entry.get()
         password = self.password_entry.get()
         password2 = self.password_entry2.get()
@@ -102,4 +125,5 @@ class CreateUserView:
                 self.error_message_label.grid(row=5, column=1, columnspan=2)
 
     def destroy(self):
+        """Destroy the create user view"""
         self._frame.destroy()

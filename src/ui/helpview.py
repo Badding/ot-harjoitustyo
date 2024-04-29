@@ -3,7 +3,22 @@ from services.app_service import app_service
 
 
 class HelpView:
+    """View for the help screen"""
+
     def __init__(self, root, handle_back, handle_logout):
+        """Constructor for the HelpView class
+
+        setting up the help view, creating the widgets
+
+        Args:
+            root (ctk.CTk):
+                The root window of the application
+            handle_back (function):
+                The function to call when the back button is clicked
+            handle_logout (function):
+                The function to call when the logout button is clicked
+        """
+
         self._root = root
         self._app_service = app_service
         self._handle_back = handle_back
@@ -28,7 +43,7 @@ class HelpView:
         self._card_hands_label = ctk.CTkLabel(
             self._help_frame, text="", font=("Helvetica", 18))
 
-        self.logout_button = ctk.CTkButton(
+        self._logout_button = ctk.CTkButton(
             master=self._help_frame,
             text="Logout",
             command=self._handle_logout
@@ -42,6 +57,11 @@ class HelpView:
         self._initialize()
 
     def _initialize(self):
+        """Initialize the help view
+
+        This method places the widgets for the help view
+        """
+
         self._welcome_message_title.grid(row=0, column=2, pady=5, columnspan=2)
         self._info_message.grid(row=1, column=2, pady=20, columnspan=2)
 
@@ -51,10 +71,14 @@ class HelpView:
 
         self._back_to_game.grid(row=3, column=2, pady=5,
                                 padx=10, columnspan=2, sticky="n")
-        self.logout_button.grid(row=4, column=2, pady=10,
-                                padx=10, columnspan=2, sticky="n")
+        self._logout_button.grid(row=4, column=2, pady=10,
+                                 padx=10, columnspan=2, sticky="n")
 
     def _update_card_hands_label(self):
+        """Update the card hands label
+
+        This method updates the label with hand names and scores
+        """
         text = "Points for each hand:\n\n"
         for i in range(10):
             hand_name = self._app_service.get_hand_name(i)

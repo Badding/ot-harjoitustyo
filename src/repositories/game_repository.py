@@ -2,7 +2,11 @@ from entities.deck import Deck
 
 
 class Game:
+    """Class for the game logic"""
+
     def __init__(self):
+        """Constructor for the Game class"""
+
         self.deck = None
         self.board = []
         self.scoreboard_rows = []
@@ -25,6 +29,11 @@ class Game:
         }
 
     def new_game(self):
+        """Start a new game
+
+            Initializes the deck, shuffles it and resets the lists
+        """
+
         self.deck = Deck()
         self.deck.shuffle_deck()
 
@@ -38,6 +47,8 @@ class Game:
         self.initialize_board()
 
     def initialize_board(self):
+        """Initialize the board with 5 cards in the first column"""
+
         for i in range(5):
             self.board[i][0] = self.deck.deal_card()
 
@@ -45,15 +56,26 @@ class Game:
         return self.board
 
     def place_card(self, row):
+        """Place a card on the board
+
+        Args:
+            row (int): The row to place the card on
+
+        Returns:
+            bool: True if the card was placed on the board
+        """
+
         if 0 <= row <= 5 and None in self.board[row]:
             index = self.board[row].index(None)
-            self.board[row][index] = self.deck.get_top_card()  # virhe?
+            self.board[row][index] = self.deck.get_top_card()
             self.deck.deal_card()
             self.calculate_score()
             return True
         return False
 
     def calculate_score(self):
+        """Calculate the total score for the rows and columns"""
+
         self.score = 0
 
         for i in range(5):
@@ -75,6 +97,19 @@ class Game:
             self.score += row_score + column_score
 
     def check_row(self, row):
+        """Check the row for the best possible poker hand
+
+        Calculates the occurences of each rank and suit in the row.
+        If the row is full, calls the check_for_straight function to check for a straight.
+        Calls the best_hand function to determine the best hand for the row.
+
+        Args:
+            row (list): A list of cards in the row
+
+        Returns:
+            int: The best poker hand on the row
+        """
+
         freq = {2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0,
                 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0}
         suits = {1: 0, 2: 0, 3: 0, 4: 0}
@@ -94,6 +129,17 @@ class Game:
         return self.best_hand(freq, suits, straight)
 
     def best_hand(self, freq, suits, straight):
+        """Helper function for check_row to determine the best hand
+
+        Args:
+            freq (dict): The frequency of each rank in the row
+            suits (dict): The frequency of each suit in the row
+            straight (bool): True if the row is a straight
+
+        Returns:
+            int: The best poker hand on the row
+        """
+
         hand = 0
 
         max_freq = max(freq.values())
@@ -123,6 +169,14 @@ class Game:
         return hand
 
     def check_for_straight(self, row):
+        """helper function for check_row
+
+        Works with ace as highest or lowest card in the straight
+
+        Args:
+            row (list): A list of cards in the row
+        """
+
         sorted_row = sorted(row)
         in_a_row = 1
 

@@ -3,7 +3,21 @@ from repositories.game_repository import game
 
 
 class AppService:
+    """Service class for the application
+
+    This class handles all the application logic and acts
+    as a bridge between the UI and the repositories.
+
+    Attributes:
+        _game (Game):
+            The game repository
+        _user (str):
+            The current user
+    """
+
     def __init__(self):
+        """Constructor for the AppService class"""
+
         self._game = game
         self._user = None
 
@@ -21,6 +35,20 @@ class AppService:
         self._user = None
 
     def create_user(self, username, password):
+        """Create a new user
+
+        Checks if the user already exists and if not, adds the user to the database
+
+        Args:
+            username (str):
+                The username of the new user
+            password (str):
+                The password of the new user
+
+        Returns:
+            True if the user was created, False if the user already exists
+        """
+
         already_exists = ur.get_user(username)
 
         if already_exists:

@@ -3,7 +3,22 @@ from services.app_service import app_service
 
 
 class LoginView:
+    """View for logging in to the application"""
+
     def __init__(self, root, handle_quickplay, handle_create_user):
+        """Constructor for the LoginView class
+
+        setting up the login view, creating the widgets
+
+        Args:
+            root (ctk.CTk):
+                The root window of the application
+            handle_quickplay (function):
+                The function to call when the quick play button is clicked
+            handle_create_user (function):
+                The function to call when the create user button is clicked
+        """
+
         self._root = root
         self._handle_quickplay = handle_quickplay
         self._handle_create_user = handle_create_user
@@ -49,6 +64,11 @@ class LoginView:
         self._initialize()
 
     def _initialize(self):
+        """Initialize the login view
+
+        This method places the widgets for the login view
+        """
+
         self._title_label.grid(row=0, column=1, columnspan=2)
         self.username_label.grid(row=1, column=1, pady=0, padx=10, sticky="e")
         self.username_entry.grid(row=1, column=2, pady=0, padx=10, sticky="w")
@@ -66,6 +86,13 @@ class LoginView:
             row=4, column=1, pady=0, padx=10, columnspan=2)
 
     def _login_button_click(self):
+        """Handle the login button click event
+
+        tries to login the user with the given username and password
+        if the login is successful, the quick play view is shown
+        else an error message is shown
+        """
+
         user = self.username_entry.get()
         password = self.password_entry.get()
         success = app_service.login(user, password)
@@ -76,4 +103,6 @@ class LoginView:
             self.error_message_label.grid(row=3, column=1, columnspan=2)
 
     def destroy(self):
+        """Destroy the login view"""
+
         self._frame.destroy()

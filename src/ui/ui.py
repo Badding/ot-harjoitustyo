@@ -6,7 +6,22 @@ from ui.createuserview import CreateUserView
 
 
 class UI:
+    """Main class for the UI of the game
+
+    Attributes:
+        root (ctk.CTk):
+            The root window of the application
+        _current_view (object):
+            The current view object
+    """
+
     def __init__(self, root):
+        """Constructor for the UI class
+
+        Args:
+            root (ctk.CTk):
+                The root window of the application
+        """
         self.root = root
         self.root.title("Poker Squares")
         self.root.geometry("1200x600")
@@ -14,7 +29,7 @@ class UI:
         self._current_view = None
 
     def run(self):
-
+        """Start the UI"""
         self._show_login()
 
     def _handle_login(self):
