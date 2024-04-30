@@ -19,5 +19,6 @@
 | 23.4. | 6    | implemented user login and create, more tests, restructuring code |
 | 28.4. | 4    | Added help view, logout feature, refactored code so the game can continue after pausing
 | 29.4. | 2    | Added comments to the code
+| 29.4. | 3    | Added manual, Updated architecture doc
 |-------|------|
-|Sum    | 49   |
+|Sum    | 52   |

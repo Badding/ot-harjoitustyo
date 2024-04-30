@@ -29,7 +29,7 @@ poetry install
 ```
 Run before starting the app
 ```bash
-poetry run invoke db-init
+poetry run invoke build
 ```
 Run app
 ```bash
