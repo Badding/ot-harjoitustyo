@@ -8,6 +8,7 @@ The project is a part of a course at the University of Helsinki.
 
 ## Documents
 * [Link to Manual](dokumentaatio/manual.md)
+* [Link to Releases](https://github.com/Badding/ot-harjoitustyo/releases)
 * [Link to Requirements specification](dokumentaatio/vaatimusmaarittely.md)
 * [Link to Architecture](dokumentaatio/arkkitehtuuri.md)
 * [Link to Changelog](dokumentaatio/changelog.md)
