@@ -5,16 +5,17 @@ Download the newest [release](https://github.com/Badding/ot-harjoitustyo/release
 ### Installation
 
 To Install dependencies 
-
+```bash
 poetry install
-
-Run before starting the app the database needs to initialized
-
+```
+Run before starting the app to initialize the database
+```bash
 poetry run invoke build
-
+```
 Run app
-
+```bash
 poetry run invoke start
+```
 
 ## To play quick game without user account
 
