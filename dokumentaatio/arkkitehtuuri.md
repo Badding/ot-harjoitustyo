@@ -50,9 +50,9 @@ Diagrams from main functionality of the game. User creates username and then log
         UI-->>-User: "game starts"
 ```
 
-Sequence diagram for user creation.
-
 ### User creation sequence diagram
+
+Sequence diagram for user creation.
 
 ```mermaid
     sequenceDiagram
