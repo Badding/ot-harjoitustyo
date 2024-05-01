@@ -2,7 +2,9 @@
 
 ## Structure
 
-The application has three layers, UI, service and repositories. The package UI contains the user interface, in the service is responsible of logic and through repository is the interface to database.
+The application has three layers, UI, service and repositories. The package UI contains the user interface, in the service is responsible of logic and through repository packet is the interface to the database.
+
+![](./pics/packet.png)
 
 ## UI
 
