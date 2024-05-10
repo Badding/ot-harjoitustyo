@@ -2,6 +2,13 @@
 
 Download the newest [release](https://github.com/Badding/ot-harjoitustyo/releases), click  __Source code__ from __Assets__
 
+### Configure
+
+User data is stored in a database. To change the default name of the database you can change the .env file in the database directory.
+```bash
+poetry DATABASE_FILENAME=database.sqlite
+```
+
 ### Installation
 
 To Install dependencies 
