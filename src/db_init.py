@@ -6,6 +6,9 @@ def drop_tables(connection):
     cursor.execute('''
         DROP TABLE IF EXISTS users;
     ''')
+    cursor.execute('''
+        DROP TABLE IF EXISTS stats;
+    ''')
     connection.commit()
 
 
@@ -13,8 +16,19 @@ def create_tables(connection):
     cursor = connection.cursor()
     cursor.execute('''
         CREATE TABLE users (
+            id integer primary key autoincrement,
             username text,
             password text
+        );
+    ''')
+    cursor.execute('''
+    CREATE TABLE stats (
+            id integer primary key autoincrement,
+            user_id integer,
+            top_score integer,
+            games_played integer,
+            hands_made text,
+            FOREIGN KEY(user_id) REFERENCES users(id)
         );
     ''')
     connection.commit()

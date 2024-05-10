@@ -27,10 +27,10 @@ class Card:
 
         return str(self.rank) + str(self.suit)
 
-    def __repr__(self):
-        """Representation of the card"""
+    # def __repr__(self):
+    #    """Representation of the card"""
 
-        return self.__str__()
+    #    return self.__str__()
 
     def __lt__(self, other):
         return self.rank < other.rank

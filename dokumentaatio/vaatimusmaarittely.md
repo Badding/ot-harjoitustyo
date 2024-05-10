@@ -27,7 +27,7 @@ This version outlines the flow of the application more clearly, detailing the se
 - [x] Logout
 - [x] Change user
 
-### While playing
+### Gameplay
  
 - [x] Quick play without user account
 - [x] Graphics show current game state
@@ -37,8 +37,8 @@ This version outlines the flow of the application more clearly, detailing the se
 
 ### After Game over
 
-- [ ] Show stats after the game ends
-- [ ] Save stats to database, best score, timeplayed, number of games played, etc.
+- [x] Show stats after the game ends
+- [x] Save stats to database, best score, timeplayed, number of games played, etc.
 - [x] Start a new game after game over
 
 ## Future ideas

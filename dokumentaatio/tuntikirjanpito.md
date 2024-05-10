@@ -1,4 +1,4 @@
-# Työaikakirjanpito
+# Time usage
 
 | date | time | description  |
 | :----:|:-----| :-----|
@@ -20,5 +20,6 @@
 | 28.4. | 4    | Added help view, logout feature, refactored code so the game can continue after pausing
 | 29.4. | 2    | Added comments to the code
 | 29.4. | 3    | Added manual, Updated architecture doc
+|  6.5. | 5    | Added gameover view, stat saving to database
 |-------|------|
-|Sum    | 52   |
+|Sum    | 57   |

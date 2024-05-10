@@ -21,6 +21,16 @@ class UserRepository:
         self._cursor.execute('''
             INSERT INTO users (username, password) VALUES (?, ?);
         ''', (username, password))
+
+        self._connection.commit()
+
+    def init_new_user_stat(self, user_id):
+        """Add a new stat entry for new user to the database"""
+
+        self._cursor.execute('''
+            INSERT INTO stats (user_id, top_score, games_played, hands_made) VALUES (?, ?, ?, ?);
+        ''', (user_id, 0, 0, '0;0;0;0;0;0;0;0;0;0'))
+
         self._connection.commit()
 
     def get_user(self, username):
@@ -46,6 +56,54 @@ class UserRepository:
             SELECT rowid FROM users WHERE username = ?;
         ''', (username,))
         return self._cursor.fetchone()
+
+    def get_user_by_id(self, user_id):
+        """Get a user from the database by user_id"""
+
+        self._cursor.execute('''
+            SELECT * FROM users WHERE rowid = ?;
+        ''', (user_id,))
+        return self._cursor.fetchone()
+
+    def get_user_stats(self, user_id):
+        """Get the stats of a user by user_id"""
+
+        self._cursor.execute('''
+            SELECT * FROM stats WHERE user_id = ?;
+        ''', (user_id,))
+        return self._cursor.fetchone()
+
+    def get_top_scores(self):
+        """Get the top scores of all users"""
+
+        self._cursor.execute('''
+            SELECT user_id, top_score FROM stats ORDER BY top_score DESC LIMIT 10;
+        ''')
+        return self._cursor.fetchall()
+
+    def update_top_score(self, user_id, score):
+        """Update the top score of a user"""
+
+        self._cursor.execute('''
+            UPDATE stats SET top_score = ? WHERE user_id = ?;
+        ''', (score, user_id))
+        self._connection.commit()
+
+    def update_games_played(self, user_id, games_played):
+        """Update the games played of a user"""
+
+        self._cursor.execute('''
+            UPDATE stats SET games_played = ? WHERE user_id = ?;
+        ''', (games_played, user_id))
+        self._connection.commit()
+
+    def update_hands_made(self, user_id, hands_made):
+        """Update the hands made of a user"""
+
+        self._cursor.execute('''
+            UPDATE stats SET hands_made = ? WHERE user_id = ?;
+        ''', (hands_made, user_id))
+        self._connection.commit()
 
     def check_password(self, username, password):
         """Check if the password matches the username

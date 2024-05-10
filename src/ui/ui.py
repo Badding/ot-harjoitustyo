@@ -2,6 +2,7 @@
 from ui.gameview import GameView
 from ui.loginview import LoginView
 from ui.helpview import HelpView
+from ui.gameoverview import GameoverView
 from ui.createuserview import CreateUserView
 
 
@@ -52,6 +53,9 @@ class UI:
     def _handle_logout(self):
         self._show_login()
 
+    def _handle_game_over(self):
+        self._show_game_over()
+
     def _show_login(self):
         self._hide_current_view()
 
@@ -64,7 +68,8 @@ class UI:
     def _show_game(self):
         self._hide_current_view()
 
-        self._current_view = GameView(self.root, self._handle_help)
+        self._current_view = GameView(
+            self.root, self._handle_help, self._handle_game_over)
 
     def _show_help(self):
         self._hide_current_view()
@@ -74,6 +79,11 @@ class UI:
             self._handle_back,
             self._handle_logout
         )
+
+    def _show_game_over(self):
+        self._hide_current_view()
+
+        self._current_view = GameoverView(self.root, self._handle_back)
 
     def _hide_current_view(self):
         if self._current_view:

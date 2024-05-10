@@ -5,7 +5,7 @@ from services.app_service import app_service
 class GameView:
     """View for the game screen"""
 
-    def __init__(self, root, handle_help):
+    def __init__(self, root, handle_help, handle_gameover):
         """Constructor for the GameView class
 
         Args:
@@ -17,6 +17,7 @@ class GameView:
 
         self._root = root
         self._handle_help = handle_help
+        self._handle_gameover = handle_gameover
         self._frame = None
         self._app_service = app_service
         self._buttons = [None] * 5
@@ -28,12 +29,11 @@ class GameView:
 
         self._initialize()
 
-        # self.score_frame()
-
     def destroy(self):
         """Destroy the game view"""
 
         self._frame.destroy()
+        self._infoframe.destroy()
 
     def _initialize(self):
         """Initialize the game view"""
@@ -59,7 +59,11 @@ class GameView:
         self.init_info()
 
     def _button_callback(self, row):
-        """Callback function for placing the card on the board"""
+        """Callback function for placing the card on the board
+        
+        If the card is placed successfully, the button is removed and the scores are updated
+        If the row is not full, a new button is placed on the board
+        """
 
         card = self._app_service.get_delt_card()
         board = self._app_service.get_board()
@@ -67,7 +71,7 @@ class GameView:
         card_placed = self._app_service.place_card(row)
 
         if card_placed:
-            # self._buttons[row].destroy()
+            
             self._buttons[row] = None
             self._place_label(row, index, card)
             self._update_scores()
@@ -75,7 +79,8 @@ class GameView:
             self._update_total_score()
 
             if self._app_service.is_game_over():
-                self._place_newgame_button()
+                self._app_service.save_stats()
+                self._handle_gameover()
 
         if None in board[row]:
             self._buttons[row] = self._place_button(row, index + 1)
@@ -97,13 +102,6 @@ class GameView:
 
         self._app_service.new_game()
         self._initialize()
-
-    def _place_newgame_button(self):
-        """Place the new game button to infoframe after the game is over"""
-
-        new_game_button = ctk.CTkButton(
-            self._infoframe, text="New Game", command=self._init_newgame)
-        new_game_button.grid(row=3, column=2)
 
     def _place_button(self, row, column):
         """Place a button on the board
@@ -213,14 +211,6 @@ class GameView:
         total_score = self._app_service.get_total_score()
         self._total_score_label.configure(text=f"Score: {total_score}")
 
-    def _update_infoframe_hands(self):
-        # not yet implemented
-        best_hands_row = self._app_service.get_best_hand_rows()
-        best_hands_column = self._app_service.get_best_hand_columns()
-
-        for i in range(5):
-            pass
-
     def init_info(self):
         """Initializes the info frame contains delt card, and total score labels and help button"""
 
@@ -245,4 +235,3 @@ class GameView:
             self._infoframe, text=f"Score: {total_score}", font=("Lobster two", 24))
         self._total_score_label.grid(row=2, column=2)
 
-        # self._infoframe_hands = ctk.CTkLabel(self._infoframe, text="", font=("Lobster two", 24))

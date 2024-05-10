@@ -44,16 +44,13 @@ class Game:
         self.best_hand_row = [0, 0, 0, 0, 0]
         self.best_hand_columns = [0, 0, 0, 0, 0]
 
-        self.initialize_board()
+        self._initialize_board()
 
-    def initialize_board(self):
+    def _initialize_board(self):
         """Initialize the board with 5 cards in the first column"""
 
         for i in range(5):
             self.board[i][0] = self.deck.deal_card()
-
-    def get_board(self):
-        return self.board
 
     def place_card(self, row):
         """Place a card on the board
@@ -82,8 +79,8 @@ class Game:
             column = [self.board[j][i] for j in range(5)]
             row = self.board[i]
 
-            hand_from_row = self.check_row(row)
-            hand_from_column = self.check_row(column)
+            hand_from_row = self._check_row(row)
+            hand_from_column = self._check_row(column)
 
             self.best_hand_row[i] = hand_from_row
             self.best_hand_columns[i] = hand_from_column
@@ -96,7 +93,7 @@ class Game:
 
             self.score += row_score + column_score
 
-    def check_row(self, row):
+    def _check_row(self, row):
         """Check the row for the best possible poker hand
 
         Calculates the occurences of each rank and suit in the row.
@@ -216,6 +213,9 @@ class Game:
                 break
 
         return game_over
+
+    def get_board(self):
+        return self.board
 
     def get_hand_name(self, hand):
         return self.poker_hands.get(hand)

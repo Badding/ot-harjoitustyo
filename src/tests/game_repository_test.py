@@ -70,67 +70,67 @@ class TestPokerSquares(unittest.TestCase):
     def test_check_row_nothing(self):
         row = [card.Card(2, 1), card.Card(4, 2), card.Card(
             6, 3), card.Card(5, 4), card.Card(7, 1)]
-        self.assertEqual(self.game.check_row(row), 0)
+        self.assertEqual(self.game._check_row(row), 0)
 
     def test_check_row_none_in_row(self):
         row = [card.Card(2, 1), card.Card(
             4, 2), card.Card(6, 3), card.Card(5, 4), None]
-        self.assertEqual(self.game.check_row(row), 0)
+        self.assertEqual(self.game._check_row(row), 0)
 
     def test_check_row_pair(self):
         row = [card.Card(2, 1), card.Card(2, 2), card.Card(
             3, 3), card.Card(4, 4), card.Card(5, 1)]
-        self.assertEqual(self.game.check_row(row), 1)
+        self.assertEqual(self.game._check_row(row), 1)
 
     def test_check_row_two_pair(self):
         row = [card.Card(2, 1), card.Card(2, 2), card.Card(
             3, 3), card.Card(3, 4), card.Card(5, 1)]
-        self.assertEqual(self.game.check_row(row), 2)
+        self.assertEqual(self.game._check_row(row), 2)
 
     def test_check_row_three_of_a_kind(self):
         row = [card.Card(2, 1), card.Card(2, 2), card.Card(
             2, 3), card.Card(3, 4), card.Card(5, 1)]
-        self.assertEqual(self.game.check_row(row), 3)
+        self.assertEqual(self.game._check_row(row), 3)
 
     def test_check_row_straight(self):
         row = [card.Card(2, 1), card.Card(3, 2), card.Card(
             6, 1), card.Card(5, 4), card.Card(4, 3)]
-        self.assertEqual(self.game.check_row(row), 4)
+        self.assertEqual(self.game._check_row(row), 4)
 
     def test_check_row_straight_start_from_ace(self):
         row = [card.Card(14, 1), card.Card(2, 2), card.Card(
             4, 4), card.Card(3, 3),  card.Card(5, 1)]
-        self.assertEqual(self.game.check_row(row), 4)
+        self.assertEqual(self.game._check_row(row), 4)
 
     def test_check_row_straight_end_from_ace(self):
         row = [card.Card(10, 1), card.Card(14, 1), card.Card(
             13, 4), card.Card(12, 3), card.Card(11, 2)]
-        self.assertEqual(self.game.check_row(row), 4)
+        self.assertEqual(self.game._check_row(row), 4)
 
     def test_check_row_flush(self):
         row = [card.Card(2, 1), card.Card(10, 1), card.Card(
             6, 1), card.Card(5, 1), card.Card(4, 1)]
-        self.assertEqual(self.game.check_row(row), 5)
+        self.assertEqual(self.game._check_row(row), 5)
 
     def test_check_row_full_house(self):
         row = [card.Card(2, 1), card.Card(2, 2), card.Card(
             2, 3), card.Card(3, 4), card.Card(3, 1)]
-        self.assertEqual(self.game.check_row(row), 6)
+        self.assertEqual(self.game._check_row(row), 6)
 
     def test_check_row_four_of_a_kind(self):
         row = [card.Card(2, 1), card.Card(2, 2), card.Card(
             2, 3), card.Card(2, 4), card.Card(5, 1)]
-        self.assertEqual(self.game.check_row(row), 7)
+        self.assertEqual(self.game._check_row(row), 7)
 
     def test_check_row_straight_flush(self):
         row = [card.Card(2, 1), card.Card(3, 1), card.Card(
             4, 1), card.Card(5, 1), card.Card(6, 1)]
-        self.assertEqual(self.game.check_row(row), 8)
+        self.assertEqual(self.game._check_row(row), 8)
 
     def test_check_row_royal_flush(self):
         row = [card.Card(10, 1), card.Card(11, 1), card.Card(
             12, 1), card.Card(13, 1), card.Card(14, 1)]
-        self.assertEqual(self.game.check_row(row), 9)
+        self.assertEqual(self.game._check_row(row), 9)
 
     # score tests from poker hand
     def test_get_score_nothing(self):
