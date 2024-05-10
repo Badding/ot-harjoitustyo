@@ -48,6 +48,7 @@ class AppService:
     def logout(self):
         """Logout the current user"""
         self._user = None
+        self._game.new_game()
 
     def create_user(self, username, password):
         """Create a new user

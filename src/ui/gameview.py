@@ -218,7 +218,7 @@ class GameView:
             self._infoframe, text="i", command=self._handle_help,
             width=40, height=40,
             font=("Lobster two", 30))
-        # helpview.grid(row=0, column=2)
+        
         helpview.place(relx=0.95, rely=0.1, anchor="se")
         delt_card = self._app_service.get_delt_card()
         self.delt_card_label = ctk.CTkLabel(self._infoframe, width=55, height=90, font=("Lobster two", 20),

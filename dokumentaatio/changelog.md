@@ -39,3 +39,4 @@
 ## Week 7
 - added GameoverView where stats are shown for the player after gameover
 - added user stats saving to database
+- added Werkzeug for user password security

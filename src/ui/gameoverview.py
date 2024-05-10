@@ -86,8 +86,6 @@ class GameoverView:
         hands_played_split = hands_played.split(';')
         hands = "Hands made\n\n"
 
-        # hands_played_split.reverse()
-
         for i in range(8, -1, -1):
             name = self._app_service.get_hand_name(i)
             hands += f"{name} : {hands_played_split[i]}\n"
@@ -97,7 +95,7 @@ class GameoverView:
         self._user_stats.configure(text=text)
 
     def _update_last_game_stats(self):
-        """Update the last game stats"""
+        """Update the last game played stats"""
 
         best_on_rows = self._app_service.get_best_hand_rows()
         best_on_columns = self._app_service.get_best_hand_columns()

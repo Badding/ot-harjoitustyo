@@ -22,24 +22,25 @@ This version outlines the flow of the application more clearly, detailing the se
 
 ### Accounts
 
-- [x] Create a new user account
-- [x] Login
-- [x] Logout
-- [x] Change user
+- Create a new user account
+- Login
+- Logout
+- Change user
+- Password stored securely using password hashing
 
 ### Gameplay
  
-- [x] Quick play without user account
-- [x] Graphics show current game state
-- [x] Calculate current score after every move
-- [x] Show score on each row/column
-- [x] Information screen with game rules
+- Quick play without user account
+- Graphics show current game state
+- Calculate current score after every move
+- Show score on each row/column
+- Information screen with game rules
 
 ### After Game over
 
-- [x] Show stats after the game ends
-- [x] Save stats to database, best score, timeplayed, number of games played, etc.
-- [x] Start a new game after game over
+- Show stats after the game ends
+- Save stats to database, best score, number of games played, etc.
+- Start a new game after game over
 
 ## Future ideas
 * save game

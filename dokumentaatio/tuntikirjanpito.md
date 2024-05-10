@@ -21,5 +21,6 @@
 | 29.4. | 2    | Added comments to the code
 | 29.4. | 3    | Added manual, Updated architecture doc
 |  6.5. | 5    | Added gameover view, stat saving to database
+| 10.5. | 1    | Added Werkzeug
 |-------|------|
 |Sum    | 57   |

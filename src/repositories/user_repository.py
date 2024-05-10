@@ -1,5 +1,5 @@
 import db_connection
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class UserRepository:
     """User repository class. Handles all user related database operations"""
@@ -16,11 +16,12 @@ class UserRepository:
         self._cursor = connection.cursor()
 
     def add_user(self, username, password):
-        """Add a new user to the database"""
+        """Add a new user to the database saving the password hash"""
 
+        password_hash = generate_password_hash(password)
         self._cursor.execute('''
             INSERT INTO users (username, password) VALUES (?, ?);
-        ''', (username, password))
+        ''', (username, password_hash))
 
         self._connection.commit()
 
@@ -106,7 +107,7 @@ class UserRepository:
         self._connection.commit()
 
     def check_password(self, username, password):
-        """Check if the password matches the username
+        """Check if the password hash matches the username in the database
 
         Args:
             username (str):
@@ -120,18 +121,8 @@ class UserRepository:
         user = self.get_user(username)
         if user is None:
             return False
-        return user['password'] == password
+
+        return check_password_hash(user['password'], password)
 
 
 user_repository = UserRepository(db_connection.get_connection())
-
-"""
-if __name__ == '__main__':
-    connection = db_connection.get_connection()
-
-    init_db()
-
-    cursor = connection.cursor()
-
-    #connection.close()
-"""
