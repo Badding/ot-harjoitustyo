@@ -12,10 +12,12 @@ The application has three layers, UI, service and repositories. The package UI c
 
 + login 
 + createuser
++ gameselection
 + game
 + info
++ gameover
 
-The class UI handles the change between views. Loginview contains way to login, change to createuser view and quickplay option without logging in. In the game view is the main usage of the application. Game view contains transition to info view.
+The class UI handles the change between views. Loginview contains way to login, change to createuser view and quickplay option without logging in. After the user selects quick game or logs in game selection view is shown. In the game view is the main usage of the application. Game view contains transition to info view. When the game is over gameover view is shown with player stats, top scores etc.
 
 ### Service
 

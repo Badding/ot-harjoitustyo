@@ -46,7 +46,7 @@ class GameoverView:
 
     def _initialize(self):
         """Initialize the help view"""
-        
+
         self._update_user_stats()
         self._update_last_game_stats()
         self._update_top_scores()
@@ -77,11 +77,13 @@ class GameoverView:
             return
 
         user_id = self._app_service.get_id(user)[0]
-        user_stats = self._app_service.get_user_stats(user_id)
-        top_scores = user_stats[2]
-        games_played = user_stats[3]
+        game_mode = self._app_service.get_game_mode()
+        game_mode_name = self._app_service.get_game_mode_name()
+        user_stats = self._app_service.get_user_stats(user_id, game_mode)
+        top_scores = user_stats[3]
+        games_played = user_stats[4]
 
-        hands_played = user_stats[4]
+        hands_played = user_stats[5]
 
         hands_played_split = hands_played.split(';')
         hands = "Hands made\n\n"
@@ -90,7 +92,7 @@ class GameoverView:
             name = self._app_service.get_hand_name(i)
             hands += f"{name} : {hands_played_split[i]}\n"
 
-        text = f"{user}'s all time stats\n\nTop score : {top_scores}\n\ngames : {games_played}\n\n{hands}"
+        text = f"{user}'s\nall time stats\nfor {game_mode_name}\n\nTop score : {top_scores}\n\ngames : {games_played}\n\n{hands}"
 
         self._user_stats.configure(text=text)
 
@@ -117,8 +119,10 @@ class GameoverView:
     def _update_top_scores(self):
         """Update the top scores"""
 
-        top_scores = self._app_service.get_top_scores()
-        text = "Top scores:\n\n"
+        game_mode = self._app_service.get_game_mode()
+        game_mode_name = self._app_service.get_game_mode_name()
+        top_scores = self._app_service.get_top_scores(game_mode)
+        text = f"Top scores\nfor {game_mode_name} mode:\n\n"
 
         for row in top_scores:
             user_id = row[0]

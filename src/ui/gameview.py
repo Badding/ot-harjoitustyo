@@ -55,25 +55,30 @@ class GameView:
             self._app_service.new_game()
 
         self.init_scores()
-        self.init_board()
+
+        if self._app_service.get_game_mode() == 0:
+            self._init_board_default()
+        else:
+            self._init_board_anywhere()
+
         self.init_info()
 
-    def _button_callback(self, row):
+    def _button_callback(self, row, column):
         """Callback function for placing the card on the board
-        
+
         If the card is placed successfully, the button is removed and the scores are updated
         If the row is not full, a new button is placed on the board
         """
 
         card = self._app_service.get_delt_card()
         board = self._app_service.get_board()
-        index = board[row].index(None)
-        card_placed = self._app_service.place_card(row)
+        # index = board[row].index(None)
+        card_placed = self._app_service.place_card(row, column)
 
         if card_placed:
-            
+
             self._buttons[row] = None
-            self._place_label(row, index, card)
+            self._place_label(row, column, card)
             self._update_scores()
             self._update_delt_card()
             self._update_total_score()
@@ -82,10 +87,10 @@ class GameView:
                 self._app_service.save_stats()
                 self._handle_gameover()
 
-        if None in board[row]:
-            self._buttons[row] = self._place_button(row, index + 1)
+        if None in board[row] and self._app_service.get_game_mode() == 0:
+            self._buttons[row] = self._place_button(row, column + 1)
 
-    def make_command(self, row):
+    def make_command(self, row, column):
         """Create a command for the button
 
         Args:
@@ -95,7 +100,7 @@ class GameView:
             function: The command function
         """
 
-        return lambda: self._button_callback(row)
+        return lambda: self._button_callback(row, column)
 
     def _init_newgame(self):
         """Initialize a new game"""
@@ -116,7 +121,7 @@ class GameView:
 
         button = ctk.CTkButton(self._frame, text="", width=40, height=80,
                                font=("Lobster two", 16),
-                               command=self.make_command(row))
+                               command=self.make_command(row, column))
         button.grid(row=row, column=column, pady=10, padx=10)
 
         return button
@@ -144,7 +149,7 @@ class GameView:
 
         return True
 
-    def init_board(self):
+    def _init_board_default(self):
         """Places cards on the board and initializes the buttons for placing cards
 
         method gets current board from app_service and places cards on the board
@@ -165,6 +170,22 @@ class GameView:
                     button = self._place_button(i, j)
                     self._buttons.append(button)
                     row_complete = True
+
+    def _init_board_anywhere(self):
+        """Places cards on the board and initializes the buttons for placing cards
+
+        method gets current board from app_service and places cards on the board
+        """
+
+        board = self._app_service.get_board()
+        for i in range(5):
+            for j in range(5):
+                if board[i][j] is not None:
+                    card = board[i][j]
+                    self._place_label(i, j, card)
+                else:
+                    button = self._place_button(i, j)
+                    self._buttons.append(button)
 
     def init_scores(self):
         """Initializes the score labels for the rows and columns"""
@@ -218,7 +239,7 @@ class GameView:
             self._infoframe, text="i", command=self._handle_help,
             width=40, height=40,
             font=("Lobster two", 30))
-        
+
         helpview.place(relx=0.95, rely=0.1, anchor="se")
         delt_card = self._app_service.get_delt_card()
         self.delt_card_label = ctk.CTkLabel(self._infoframe, width=55, height=90, font=("Lobster two", 20),
@@ -234,4 +255,3 @@ class GameView:
         self._total_score_label = ctk.CTkLabel(
             self._infoframe, text=f"Score: {total_score}", font=("Lobster two", 24))
         self._total_score_label.grid(row=2, column=2)
-

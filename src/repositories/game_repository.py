@@ -6,7 +6,6 @@ class Game:
 
     def __init__(self):
         """Constructor for the Game class"""
-
         self.deck = None
         self.board = []
         self.scoreboard_rows = []
@@ -14,6 +13,7 @@ class Game:
         self.best_hand_row = []
         self.best_hand_columns = []
         self.score = 0
+        self.game_mode = 0
 
         self.poker_hands = {
             0: 'No Hand',
@@ -44,7 +44,8 @@ class Game:
         self.best_hand_row = [0, 0, 0, 0, 0]
         self.best_hand_columns = [0, 0, 0, 0, 0]
 
-        self._initialize_board()
+        if self.game_mode == 0:
+            self._initialize_board()
 
     def _initialize_board(self):
         """Initialize the board with 5 cards in the first column"""
@@ -52,7 +53,7 @@ class Game:
         for i in range(5):
             self.board[i][0] = self.deck.deal_card()
 
-    def place_card(self, row):
+    def place_card(self, row, column):
         """Place a card on the board
 
         Args:
@@ -61,10 +62,9 @@ class Game:
         Returns:
             bool: True if the card was placed on the board
         """
+        if 0 <= row <= 5 and 0 <= column <= 5:
 
-        if 0 <= row <= 5 and None in self.board[row]:
-            index = self.board[row].index(None)
-            self.board[row][index] = self.deck.get_top_card()
+            self.board[row][column] = self.deck.get_top_card()
             self.deck.deal_card()
             self.calculate_score()
             return True
@@ -187,6 +187,15 @@ class Game:
         return in_a_row == 5
 
     def get_score(self, hand):
+        """Get the score for the hand
+
+        Args:
+            hand (int): The hand to get the score for
+
+        Returns:
+            int: The score for the hand
+        """
+
         score_dict = {
             9: 100,  # Royal Flush
             8: 75,   # Straight Flush
@@ -201,6 +210,13 @@ class Game:
         }
         return score_dict.get(hand)
 
+    def get_game_mode_name(self):
+        game_mode_names = {
+            0: "Default rules",
+            1: "Place cards anywhere"
+        }
+        return game_mode_names.get(self.game_mode)
+
     def is_game_over(self):
         if self.deck is None:
             return True
@@ -213,6 +229,17 @@ class Game:
                 break
 
         return game_over
+
+    def end_game(self):
+        """End the game"""
+
+        self.deck = None
+
+    def set_game_mode(self, mode):
+        self.game_mode = mode
+
+    def get_game_mode(self):
+        return self.game_mode
 
     def get_board(self):
         return self.board

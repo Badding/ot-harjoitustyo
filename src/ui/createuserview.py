@@ -111,6 +111,10 @@ class CreateUserView:
             self.error_message_text.set("Username cannot be empty")
             self.error_message_label.grid(row=5, column=1, columnspan=2)
 
+        elif len(user) > 15:
+            self.error_message_text.set("Username too long")
+            self.error_message_label.grid(row=5, column=1, columnspan=2)
+
         elif not password or password != password2:
             self.error_message_text.set("Passwords do not match")
             self.error_message_label.grid(row=5, column=1, columnspan=2)

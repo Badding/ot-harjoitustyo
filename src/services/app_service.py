@@ -48,7 +48,7 @@ class AppService:
     def logout(self):
         """Logout the current user"""
         self._user = None
-        self._game.new_game()
+        self._game.end_game()
 
     def create_user(self, username, password):
         """Create a new user
@@ -84,17 +84,18 @@ class AppService:
             return
 
         user_id = ur.get_id(self._user)[0]
-        stats = ur.get_user_stats(user_id)
+        game_mode = self._game.get_game_mode()
+        stats = ur.get_user_stats(user_id, game_mode)
         score = self._game.get_total_score()
 
-        if score > stats[2]:
-            ur.update_top_score(user_id, score)
+        if score > stats[3]:
+            ur.update_top_score(user_id, game_mode, score)
 
-        ur.update_games_played(user_id, stats[3] + 1)
+        ur.update_games_played(user_id, game_mode, stats[4] + 1)
 
         best_on_rows = self.get_best_hand_rows()
         best_on_columns = self.get_best_hand_columns()
-        hands_made = stats[4].split(';')
+        hands_made = stats[5].split(';')
 
         for i in range(10):
             last = int(hands_made[i])
@@ -103,7 +104,7 @@ class AppService:
             hands_made[i] = str(last + row_count + column_count)
 
         hands_made = ';'.join(hands_made)
-        ur.update_hands_made(user_id, hands_made)
+        ur.update_hands_made(user_id, game_mode, hands_made)
 
     # Game related methods
 
@@ -116,8 +117,8 @@ class AppService:
     def get_board(self):
         return self._game.get_board()
 
-    def place_card(self, row):
-        return self._game.place_card(row)
+    def place_card(self, row, column):
+        return self._game.place_card(row, column)
 
     def is_game_over(self):
         return self._game.is_game_over()
@@ -149,14 +150,23 @@ class AppService:
     def get_id(self, user):
         return ur.get_id(user)
 
-    def get_user_stats(self, user_id):
-        return ur.get_user_stats(user_id)
+    def get_user_stats(self, user_id, game_mode):
+        return ur.get_user_stats(user_id, game_mode)
 
-    def get_top_scores(self):
-        return ur.get_top_scores()
+    def get_top_scores(self, game_mode):
+        return ur.get_top_scores(game_mode)
 
     def get_user_by_id(self, user_id):
         return ur.get_user_by_id(user_id)
+
+    def get_game_mode(self):
+        return self._game.get_game_mode()
+
+    def get_game_mode_name(self):
+        return self._game.get_game_mode_name()
+
+    def set_game_mode(self, mode):
+        self._game.set_game_mode(mode)
 
 
 app_service = AppService()

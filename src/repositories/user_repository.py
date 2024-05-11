@@ -1,5 +1,6 @@
-import db_connection
 from werkzeug.security import generate_password_hash, check_password_hash
+import db_connection
+
 
 class UserRepository:
     """User repository class. Handles all user related database operations"""
@@ -29,9 +30,11 @@ class UserRepository:
         """Add a new stat entry for new user to the database"""
 
         self._cursor.execute('''
-            INSERT INTO stats (user_id, top_score, games_played, hands_made) VALUES (?, ?, ?, ?);
-        ''', (user_id, 0, 0, '0;0;0;0;0;0;0;0;0;0'))
-
+            INSERT INTO stats (user_id, game_mode ,top_score, games_played, hands_made) VALUES (?, ?, ?, ?, ?);
+        ''', (user_id, 0, 0, 0, '0;0;0;0;0;0;0;0;0;0'))
+        self._cursor.execute('''
+            INSERT INTO stats (user_id, game_mode, top_score, games_played, hands_made) VALUES (?, ?, ?, ?, ?);
+        ''', (user_id, 1, 0, 0, '0;0;0;0;0;0;0;0;0;0'))
         self._connection.commit()
 
     def get_user(self, username):
@@ -66,44 +69,44 @@ class UserRepository:
         ''', (user_id,))
         return self._cursor.fetchone()
 
-    def get_user_stats(self, user_id):
+    def get_user_stats(self, user_id, game_mode):
         """Get the stats of a user by user_id"""
 
         self._cursor.execute('''
-            SELECT * FROM stats WHERE user_id = ?;
-        ''', (user_id,))
+            SELECT * FROM stats WHERE user_id = ? AND game_mode = ?;
+        ''', (user_id, game_mode))
         return self._cursor.fetchone()
 
-    def get_top_scores(self):
+    def get_top_scores(self, game_mode):
         """Get the top scores of all users"""
 
         self._cursor.execute('''
-            SELECT user_id, top_score FROM stats ORDER BY top_score DESC LIMIT 10;
-        ''')
+            SELECT user_id, top_score FROM stats WHERE game_mode = ? ORDER BY top_score DESC LIMIT 10;
+        ''', (game_mode,))
         return self._cursor.fetchall()
 
-    def update_top_score(self, user_id, score):
+    def update_top_score(self, user_id, game_mode, score):
         """Update the top score of a user"""
 
         self._cursor.execute('''
-            UPDATE stats SET top_score = ? WHERE user_id = ?;
-        ''', (score, user_id))
+            UPDATE stats SET top_score = ? WHERE user_id = ? AND game_mode = ?;
+        ''', (score, user_id, game_mode))
         self._connection.commit()
 
-    def update_games_played(self, user_id, games_played):
+    def update_games_played(self, user_id, game_mode, games_played):
         """Update the games played of a user"""
 
         self._cursor.execute('''
-            UPDATE stats SET games_played = ? WHERE user_id = ?;
-        ''', (games_played, user_id))
+            UPDATE stats SET games_played = ? WHERE user_id = ? AND game_mode = ?;
+        ''', (games_played, user_id, game_mode))
         self._connection.commit()
 
-    def update_hands_made(self, user_id, hands_made):
+    def update_hands_made(self, user_id, game_mode, hands_made):
         """Update the hands made of a user"""
 
         self._cursor.execute('''
-            UPDATE stats SET hands_made = ? WHERE user_id = ?;
-        ''', (hands_made, user_id))
+            UPDATE stats SET hands_made = ? WHERE user_id = ? AND game_mode = ?;
+        ''', (hands_made, user_id, game_mode))
         self._connection.commit()
 
     def check_password(self, username, password):

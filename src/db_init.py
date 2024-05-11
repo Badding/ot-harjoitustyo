@@ -22,9 +22,10 @@ def create_tables(connection):
         );
     ''')
     cursor.execute('''
-    CREATE TABLE stats (
+        CREATE TABLE stats (
             id integer primary key autoincrement,
             user_id integer,
+            game_mode integer,
             top_score integer,
             games_played integer,
             hands_made text,

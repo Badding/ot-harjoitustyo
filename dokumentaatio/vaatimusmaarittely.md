@@ -14,7 +14,7 @@ The app starts in the login screen, where users can log in to access their accou
 
 Upon logging in or selecting the quick game option, users are directed to the game screen, where they can start playing Poker Squares.
 
-Once the game is over or the user chooses to log out, the application navigates to the statistics page. Here, users can review their game statistics and performance."
+Once the game is over, the application navigates to the statistics page. Here, users can review their game statistics and performance.
 
 This version outlines the flow of the application more clearly, detailing the sequence of actions from the starting page to the game screen and finally to the statistics page.
 
@@ -31,6 +31,7 @@ This version outlines the flow of the application more clearly, detailing the se
 ### Gameplay
  
 - Quick play without user account
+- Gamemode selection
 - Graphics show current game state
 - Calculate current score after every move
 - Show score on each row/column
