@@ -1,29 +1,29 @@
 # Testing Document
 
-testing is carried out using automated test tools. Strategy includes unit tests, integration tests.
+Testing is carried out using automated test tools. Strategy includes unit tests, integration tests. 
 
-### Unit Tests
+## Unit and Integration Tests
 
-Unit tests will test individual components in isolation. For example:
+The `Game`-class responsible for the game logic is tested in [TestPokerSquares](..\src\tests\game_repository.py)-test class.
+The `UserRepository`-class handling user related tasks are tested in [TestUserRepository](..\src\tests\user_repository.py)-test class.
+The `AppService`-class is tested in [TestGameAppService](..\src\tests\app_service_test.py)-test class.
 
-- Test if the class methods work correctly
-- Test if the function return are correct 
-
-### Integration Tests
-
-Integration tests will test how different components work together. For example:
-
-- Test if the new user is added correctly to the database
-
-### End-to-End Tests
-
-End-to-End tests are not automated and are done manually.
+### Entity Tests
+`Card`-class that represents a playing card is tested in [TestCard](..\src\tests\card_test.py)-test class.
+`Deck`-class that represents a deck of playing cards is tested in [TestDeck](..\src\tests\deck_test.py)-test class.
+`Scores`-class is tested at the same time with other tests
 
 ## Test Coverage
 
+Excluding UI, the application testing has a branch coverage of 97%.
+![](./pics/coverage.png)
 
-ADD PICTURE
-ADD PICTURE
-ADD PICTURE
-ADD PICTURE
+Test left out in `AppService`-class has been already tested in the `TestUserRepository`-class
 
+## End-to-End Tests
+
+End-to-End tests are not automated and are done by testing the application manually.
+
+### Installing and configuring
+
+All functuonalities listed in the requirement specification document and the usermanual has been tested by either automated testes or manually. Creating a new user is the only place where user can insert inputs. These input fields are checked so they can't be empty and/or invalid values.

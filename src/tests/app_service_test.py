@@ -117,3 +117,44 @@ class TestGameAppService(unittest.TestCase):
         self.assertEqual(self._app_service.get_hand_name(7), "Four of a Kind")
         self.assertEqual(self._app_service.get_hand_name(8), "Straight Flush")
         self.assertEqual(self._app_service.get_hand_name(9), "Royal Flush")
+
+    def test_get_delt_card(self):
+        self._app_service.new_game()
+        self.assertIsNotNone(self._app_service.get_delt_card())
+
+    def test_get_board(self):
+        self._app_service.set_game_mode(1)
+        self._app_service.new_game()
+
+        for i in range(5):
+            for j in range(5):
+                self._app_service.place_card(i, j)
+
+        board = self._app_service.get_board()
+        
+        found_none = False
+        for i in range(5):
+            for j in range(5):
+                if board[i][j] is None:
+                    found_none = True
+        self.assertFalse(found_none)
+        
+    def test_get_game_mode(self):
+        self._app_service.set_game_mode(1)
+        self._app_service.new_game()
+        self.assertEqual(self._app_service.get_game_mode(), 1)
+
+    def test_get_score_rows_and_cols(self):
+        self._app_service.set_game_mode(1)
+        self._app_service.new_game()
+        rows = self._app_service.get_score_rows()
+        cols = self._app_service.get_score_columns()
+        self.assertIsNotNone(rows)
+        self.assertIsNotNone(cols)
+
+    def test_get_total_score(self):
+        self._app_service.set_game_mode(1)
+        self._app_service.new_game()
+        self._app_service._game._scores.set_total_score(100)
+        self.assertEqual(self._app_service.get_total_score(), 100)
+
