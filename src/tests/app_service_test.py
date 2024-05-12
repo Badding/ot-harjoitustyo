@@ -131,14 +131,14 @@ class TestGameAppService(unittest.TestCase):
                 self._app_service.place_card(i, j)
 
         board = self._app_service.get_board()
-        
+
         found_none = False
         for i in range(5):
             for j in range(5):
                 if board[i][j] is None:
                     found_none = True
         self.assertFalse(found_none)
-        
+
     def test_get_game_mode(self):
         self._app_service.set_game_mode(1)
         self._app_service.new_game()
@@ -157,4 +157,3 @@ class TestGameAppService(unittest.TestCase):
         self._app_service.new_game()
         self._app_service._game._scores.set_total_score(100)
         self.assertEqual(self._app_service.get_total_score(), 100)
-

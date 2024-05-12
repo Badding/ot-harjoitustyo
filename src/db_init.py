@@ -2,6 +2,12 @@ from db_connection import get_connection
 
 
 def drop_tables(connection):
+    """Drop tables if they exist
+
+    Args:
+        connection: Connection to the database
+    """
+
     cursor = connection.cursor()
     cursor.execute('''
         DROP TABLE IF EXISTS users;
@@ -13,6 +19,11 @@ def drop_tables(connection):
 
 
 def create_tables(connection):
+    """Create tables
+
+    Args:
+        connection: Connection to the database
+    """
     cursor = connection.cursor()
     cursor.execute('''
         CREATE TABLE users (
@@ -36,6 +47,7 @@ def create_tables(connection):
 
 
 def init_db():
+    """Initialize the database"""
     connection = get_connection()
     drop_tables(connection)
     create_tables(connection)

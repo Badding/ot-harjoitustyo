@@ -23,5 +23,6 @@
 |  6.5. | 5    | Added gameover view, stat saving to database
 | 10.5. | 2    | Added Werkzeug, config-file
 | 11.5. | 6    | Added new gamemode, refractoring, added a class to store scores
+| 12.5  | 3    | Added documentations
 |-------|------|
-|Sum    | 65   |
+|Sum    | 68   |

@@ -1,4 +1,6 @@
 class Scores:
+    """Class for keeping the scores"""
+
     def __init__(self):
         self._score = 0
         self.scoreboard_rows = [0, 0, 0, 0, 0]

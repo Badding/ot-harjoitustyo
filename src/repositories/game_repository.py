@@ -9,11 +9,6 @@ class Game:
         """Constructor for the Game class"""
         self.deck = None
         self.board = []
-        """
-        self.scoreboard_rows = []
-        self.scoreboard_columns = []
-        self.score = 0
-        """
         self._scores = Scores()
         self.best_hand_row = []
         self.best_hand_columns = []

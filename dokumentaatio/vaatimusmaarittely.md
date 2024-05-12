@@ -6,7 +6,7 @@ Poker Squares is a Python-based card game application where users have the optio
 
 ## Users
 
-In Poker Squares, players are the only type of user. Each player's statistics are uniquely identified by their username.
+In Poker Squares, players are the only type of user. Each player's statistics are uniquely identified by their user id.
 
 ## UI 
 

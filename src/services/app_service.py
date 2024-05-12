@@ -106,8 +106,6 @@ class AppService:
         hands_made = ';'.join(hands_made)
         ur.update_hands_made(user_id, game_mode, hands_made)
 
-    # Game related methods
-
     def new_game(self):
         self._game.new_game()
 

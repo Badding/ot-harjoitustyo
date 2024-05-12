@@ -175,8 +175,8 @@ class TestPokerSquares(unittest.TestCase):
     def test_get_score_royal_flush(self):
         self.assertEqual(self.game.get_hand_score(9), 100)
 
-
     # get tests
+
     def test_get_board(self):
         self.game.new_game()
         self.assertEqual(type(self.game.get_board()), list)
