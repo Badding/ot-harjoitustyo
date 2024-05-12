@@ -16,11 +16,12 @@
 | 15.4. | 2    | Added login screen. |
 | 21.4. | 3    | Researched about how to implement database to project |
 | 22.4. | 3    | Implemented database |
-| 23.4. | 6    | implemented user login and create, more tests, restructuring code |
+| 23.4. | 6    | implemented user login and create, more tests, refractoring code |
 | 28.4. | 4    | Added help view, logout feature, refactored code so the game can continue after pausing
 | 29.4. | 2    | Added comments to the code
 | 29.4. | 3    | Added manual, Updated architecture doc
 |  6.5. | 5    | Added gameover view, stat saving to database
 | 10.5. | 2    | Added Werkzeug, config-file
+| 11.5. | 6    | Added new gamemode, refractoring, added a class to store scores
 |-------|------|
-|Sum    | 59   |
+|Sum    | 65   |

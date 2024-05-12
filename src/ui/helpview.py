@@ -53,7 +53,6 @@ class HelpView:
         if user:
             self._logout_button.configure(text=f"Logout {user}")
 
-
         self._back_to_game = ctk.CTkButton(
             master=self._help_frame,
             text="Back to game",

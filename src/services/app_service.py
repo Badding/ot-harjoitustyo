@@ -142,7 +142,7 @@ class AppService:
         return self._game.get_hand_name(hand)
 
     def get_hand_score(self, hand):
-        return self._game.get_score(hand)
+        return self._game.get_hand_score(hand)
 
     def get_user(self):
         return self._user

@@ -1,4 +1,5 @@
 from entities.deck import Deck
+from entities.scores import Scores
 
 
 class Game:
@@ -8,11 +9,15 @@ class Game:
         """Constructor for the Game class"""
         self.deck = None
         self.board = []
+        """
         self.scoreboard_rows = []
         self.scoreboard_columns = []
+        self.score = 0
+        """
+        self._scores = Scores()
         self.best_hand_row = []
         self.best_hand_columns = []
-        self.score = 0
+
         self.game_mode = 0
 
         self.poker_hands = {
@@ -36,11 +41,10 @@ class Game:
 
         self.deck = Deck()
         self.deck.shuffle_deck()
+        self._scores.reset()
 
-        self.score = 0
         self.board = [[None for _ in range(5)] for _ in range(5)]
-        self.scoreboard_rows = [0, 0, 0, 0, 0]
-        self.scoreboard_columns = [0, 0, 0, 0, 0]
+
         self.best_hand_row = [0, 0, 0, 0, 0]
         self.best_hand_columns = [0, 0, 0, 0, 0]
 
@@ -62,7 +66,9 @@ class Game:
         Returns:
             bool: True if the card was placed on the board
         """
-        if 0 <= row <= 5 and 0 <= column <= 5:
+        if 0 <= row <= 4 and 0 <= column <= 4:
+            if self.board[row][column] is not None:
+                return False
 
             self.board[row][column] = self.deck.get_top_card()
             self.deck.deal_card()
@@ -73,7 +79,7 @@ class Game:
     def calculate_score(self):
         """Calculate the total score for the rows and columns"""
 
-        self.score = 0
+        score = 0
 
         for i in range(5):
             column = [self.board[j][i] for j in range(5)]
@@ -85,13 +91,15 @@ class Game:
             self.best_hand_row[i] = hand_from_row
             self.best_hand_columns[i] = hand_from_column
 
-            row_score = self.get_score(hand_from_row)
-            column_score = self.get_score(hand_from_column)
+            row_score = self._scores.get_score(hand_from_row)
+            column_score = self._scores.get_score(hand_from_column)
 
-            self.scoreboard_rows[i] = row_score
-            self.scoreboard_columns[i] = column_score
+            self._scores.set_scoreboard_rows(i, row_score)
+            self._scores.set_scoreboard_columns(i, column_score)
 
-            self.score += row_score + column_score
+            score += row_score + column_score
+
+        self._scores.set_total_score(score)
 
     def _check_row(self, row):
         """Check the row for the best possible poker hand
@@ -186,30 +194,6 @@ class Game:
 
         return in_a_row == 5
 
-    def get_score(self, hand):
-        """Get the score for the hand
-
-        Args:
-            hand (int): The hand to get the score for
-
-        Returns:
-            int: The score for the hand
-        """
-
-        score_dict = {
-            9: 100,  # Royal Flush
-            8: 75,   # Straight Flush
-            7: 50,   # Four of a Kind
-            6: 25,   # Full House
-            5: 20,   # Flush
-            4: 15,   # Straight
-            3: 10,   # Three of a Kind
-            2: 5,    # Two Pair
-            1: 2,    # One Pair
-            0: 0     # No Hand
-        }
-        return score_dict.get(hand)
-
     def get_game_mode_name(self):
         game_mode_names = {
             0: "Default rules",
@@ -248,19 +232,19 @@ class Game:
         return self.poker_hands.get(hand)
 
     def get_hand_score(self, hand):
-        return self.get_score(hand)
+        return self._scores.get_score(hand)
 
     def get_delt_card(self):
         return self.deck.get_top_card()
 
     def get_score_rows(self):
-        return self.scoreboard_rows
+        return self._scores.get_scoreboard_rows()
 
     def get_score_columns(self):
-        return self.scoreboard_columns
+        return self._scores.get_scoreboard_columns()
 
     def get_total_score(self):
-        return self.score
+        return self._scores.get_total_score()
 
     def get_best_hand_rows(self):
         return self.best_hand_row

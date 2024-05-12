@@ -29,12 +29,13 @@ UserReposotory class handles sql queries to the database.
 
 ## Class diagram
 ```mermaid
- classDiagram
-    AppService <|-- UI
-    UserRepository <|-- AppService
-    GameRepository <|-- AppService
-    GameRepository <|-- "1" Deck
-    Deck <|-- "52"Card
+    classDiagram
+        AppService <|-- UI
+        UserRepository <|-- AppService
+        GameRepository <|-- AppService
+        GameRepository <|-- "1" Deck
+        GameRepository <|-- "1" Scores
+        Deck <|-- "52"Card
 ```
 
 ## Functionality

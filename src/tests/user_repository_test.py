@@ -57,16 +57,21 @@ class TestUserRepository(unittest.TestCase):
         ur.add_user("testuser", "1234")
         user_id = ur.get_id("testuser")[0]
         ur.init_new_user_stat(user_id)
-        user_stats = ur.get_user_stats(user_id)
-        self.assertEqual(user_stats[4], "0;0;0;0;0;0;0;0;0;0")
+        user_stats = ur.get_user_stats(user_id, 0)
+        self.assertEqual(user_stats[0], 1)
+        self.assertEqual(user_stats[1], 1)
+        self.assertEqual(user_stats[2], 0)
+        self.assertEqual(user_stats[3], 0)
+        self.assertEqual(user_stats[4], 0)
+        self.assertEqual(user_stats[5], "0;0;0;0;0;0;0;0;0;0")
 
     def test_user_hands_made(self):
         ur.add_user("testuser", "1234")
         user_id = ur.get_id("testuser")[0]
         ur.init_new_user_stat(user_id)
-        ur.update_hands_made(user_id, "0;1;2;3;4;5;6;7;8;9")
-        user_stats = ur.get_user_stats(user_id)
-        self.assertEqual(user_stats[4], "0;1;2;3;4;5;6;7;8;9")
+        ur.update_hands_made(user_id, 0, "0;1;2;3;4;5;6;7;8;9")
+        user_stats = ur.get_user_stats(user_id, 0)
+        self.assertEqual(user_stats[5], "0;1;2;3;4;5;6;7;8;9")
 
     def test_get_top_scores(self):
         ur.add_user("testuser", "1234")
@@ -75,9 +80,9 @@ class TestUserRepository(unittest.TestCase):
         user_id2 = ur.get_id("testuser2")[0]
         ur.init_new_user_stat(user_id)
         ur.init_new_user_stat(user_id2)
-        ur.update_top_score(user_id, 10)
-        ur.update_top_score(user_id2, 20)
-        result = ur.get_top_scores()
+        ur.update_top_score(user_id, 0, 10)
+        ur.update_top_score(user_id2, 0, 20)
+        result = ur.get_top_scores(0)
         self.assertEqual(result[0][1], 20)
         self.assertEqual(result[1][1], 10)
 
@@ -85,6 +90,6 @@ class TestUserRepository(unittest.TestCase):
         ur.add_user("testuser", "1234")
         user_id = ur.get_id("testuser")[0]
         ur.init_new_user_stat(user_id)
-        ur.update_games_played(user_id, 1)
-        user_stats = ur.get_user_stats(user_id)
-        self.assertEqual(user_stats[3], 1)
+        ur.update_games_played(user_id, 0, 1)
+        user_stats = ur.get_user_stats(user_id, 0)
+        self.assertEqual(user_stats[4], 1)

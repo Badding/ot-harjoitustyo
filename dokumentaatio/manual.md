@@ -4,9 +4,9 @@ Download the newest [release](https://github.com/Badding/ot-harjoitustyo/release
 
 ### Configure
 
-User data is stored in a database. To change the default name of the database you can change the .env file in the database directory.
+User data is stored in a database. To change the default name of the database you can modify the .env file in the database directory.
 ```bash
-poetry DATABASE_FILENAME=database.sqlite
+DATABASE_FILENAME=database.sqlite
 ```
 
 ### Installation
@@ -46,6 +46,11 @@ Enter user name and password and click login
 
 ![](./pics/login.png)
 
+## Select gamemode
+
+Here you can select different ruleset. In the default rules the cards can only be placed to the end of each row. In the Place card anywhere mode, you can freely place the card on any free spot on the board.
+
+![](./pics/gamemode.png)
 
 ## Gameplay
 
@@ -60,3 +65,9 @@ To access help screen press the "I" button on top right of the game screen. This
 To logout, click "Logout". User returns to login screen.
 
 ![](./pics/help.png)
+
+## Gameover
+
+After the game is over the stat screen is shown with players all time statics and top scores of all the players.
+
+![](./pics/gameover.png)

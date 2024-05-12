@@ -14,12 +14,11 @@ class SelectGameView:
 
         self._select_game_frame = ctk.CTkFrame(master=self._root)
 
-        self._welcome_message_title = ctk.CTkLabel(master=
-            self._select_game_frame, text="Welcome to Poker Squares",
-            font=("Lobster two", 50))
+        self._welcome_message_title = ctk.CTkLabel(master=self._select_game_frame, text="Welcome to Poker Squares",
+                                                   font=("Lobster two", 50))
 
-        self.message_label = ctk.CTkLabel(master=
-            self._select_game_frame, text="Select game mode:", font=("Helvetica", 18))
+        self.message_label = ctk.CTkLabel(
+            master=self._select_game_frame, text="Select game mode:", font=("Helvetica", 18))
         self._select_game_frame.place(x=0, y=0, relwidth=1, relheight=1)
 
         self._radio_var = ctk.IntVar(value=0)
@@ -41,7 +40,6 @@ class SelectGameView:
             text="Start Game",
             command=self._play
         )
-
 
         self._welcome_message_title.place(relx=0.5, rely=0.1, anchor='center')
         self.message_label.place(relx=0.5, rely=0.2, anchor='center')

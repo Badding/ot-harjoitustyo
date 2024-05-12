@@ -24,11 +24,23 @@ class TestPokerSquares(unittest.TestCase):
         self.assertTrue(one_card_in_each_row)
 
     # game play tests
+    def test_place_card(self):
+        self.game.set_game_mode(1)
+        self.game.new_game()
+        top_card = self.game.get_delt_card()
+        self.game.place_card(0, 0)
+        placed_card = self.game.board[0][0] = top_card
+        self.assertEqual(top_card, placed_card)
+
     def test_place_card_full_row(self):
         self.game.new_game()
         for i in range(5):
-            self.game.place_card(0)
-        self.assertFalse(self.game.place_card(0))
+            self.game.place_card(0, i)
+        self.assertFalse(self.game.place_card(0, 4))
+
+    def test_place_card_off_board(self):
+        self.game.new_game()
+        self.assertFalse(self.game.place_card(5, 4))
 
     def test_is_game_over_false(self):
         self.game.new_game()
@@ -41,7 +53,7 @@ class TestPokerSquares(unittest.TestCase):
         self.game.new_game()
         for i in range(5):
             for j in range(5):
-                self.game.place_card(i)
+                self.game.place_card(i, j)
         self.assertTrue(self.game.is_game_over())
 
     # straight checks tests
@@ -134,37 +146,35 @@ class TestPokerSquares(unittest.TestCase):
 
     # score tests from poker hand
     def test_get_score_nothing(self):
-        self.assertEqual(self.game.get_score(0), 0)
+        self.assertEqual(self.game.get_hand_score(0), 0)
 
     def test_get_score_pair(self):
-        self.assertEqual(self.game.get_score(1), 2)
+        self.assertEqual(self.game.get_hand_score(1), 2)
 
     def test_get_score_two_pair(self):
-        self.assertEqual(self.game.get_score(2), 5)
+        self.assertEqual(self.game.get_hand_score(2), 5)
 
     def test_get_score_three_of_a_kind(self):
-        self.assertEqual(self.game.get_score(3), 10)
+        self.assertEqual(self.game.get_hand_score(3), 10)
 
     def test_get_score_straight(self):
-        self.assertEqual(self.game.get_score(4), 15)
+        self.assertEqual(self.game.get_hand_score(4), 15)
 
     def test_get_score_flush(self):
-        self.assertEqual(self.game.get_score(5), 20)
+        self.assertEqual(self.game.get_hand_score(5), 20)
 
     def test_get_score_full_house(self):
-        self.assertEqual(self.game.get_score(6), 25)
+        self.assertEqual(self.game.get_hand_score(6), 25)
 
     def test_get_score_four_of_a_kind(self):
-        self.assertEqual(self.game.get_score(7), 50)
+        self.assertEqual(self.game.get_hand_score(7), 50)
 
     def test_get_score_straight_flush(self):
-        self.assertEqual(self.game.get_score(8), 75)
+        self.assertEqual(self.game.get_hand_score(8), 75)
 
     def test_get_score_royal_flush(self):
-        self.assertEqual(self.game.get_score(9), 100)
+        self.assertEqual(self.game.get_hand_score(9), 100)
 
-    # calculate score tests
-    # refactor calculate_score so it can be tested
 
     # get tests
     def test_get_board(self):
@@ -199,7 +209,8 @@ class TestPokerSquares(unittest.TestCase):
 
     def test_get_total_score(self):
         self.game.new_game()
-        self.assertEqual(self.game.get_total_score(), 0)
+        self.game._scores.set_total_score(123)
+        self.assertEqual(self.game.get_total_score(), 123)
 
     def test_get_hand_score(self):
         self.game.new_game()
